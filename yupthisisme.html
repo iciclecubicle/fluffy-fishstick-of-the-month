@@ -1,0 +1,261 @@
+
+<div id="arial" class="unog23 tw">
+<h1>creds:    iciclecubicle</h1>
+</div>
+<div id="arial1" class="unog1 tw">
+<h1></h1>
+</div>
+<div id="arial2" class="unog2 tw">
+<h1></h1>
+</div>
+<div id="arial3" class="unog3 tw">
+<h1></h1>
+</div>
+
+<div class="nest-container">
+  <div class="hr-group blue">
+    <hr class="1">
+    <hr class="1">
+    <hr class="1">
+    <hr class="1">
+    <hr class="1">
+    <hr class="1">
+  </div>
+  <div class="hr-group red">
+    <hr class="2">
+    <hr class="2">
+    <hr class="2">
+    <hr class="2">
+    <hr class="2">
+    <hr class="2">
+  </div>
+  <div class="hr-group yellow">
+    <hr class="3">
+    <hr class="3">
+    <hr class="3">
+    <hr class="3">
+    <hr class="3">
+    <hr class="3">
+  </div>
+  <div class="hr-group green">
+    <hr class="4">
+    <hr class="4">
+    <hr class="4">
+    <hr class="4">
+    <hr class="4">
+    <hr class="4">
+  </div>
+</div>
+<style>
+
+  /* Basic styling for the body and container */
+body {
+  background-color: #1a1a1a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+.unog1 {
+  position: relative;
+  bottom: 110px;
+  left: 400px;
+}
+.unog23 {
+  position: relative;
+  bottom: 110px;
+  left: 400px;
+
+  border-radius: 20px;
+
+  
+}
+.nest-container {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+/* Style the HR elements and parent groups */
+.hr-group {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hr-group hr {
+  position: absolute;
+  width: 10000px;
+  height: 2px;
+  border: none;
+  margin: 0;
+  padding: 0;
+  left: 50%;
+  top: 50%;
+  transform-origin: 0% 50%; /* Rotate from the left edge */
+}
+
+/* Define colors for each group */
+.blue hr { background-color: #121E4D; }
+.red hr { background-color: #3F5196; }
+.yellow hr { background-color: #151B33; }
+.green hr { background-color: #7471D9; }
+
+/* Position each HR within its group */
+.hr-group hr:nth-child(1) { transform: rotate(0deg); }
+.hr-group hr:nth-child(2) { transform: rotate(60deg); }
+.hr-group hr:nth-child(3) { transform: rotate(120deg); }
+.hr-group hr:nth-child(4) { transform: rotate(180deg); }
+.hr-group hr:nth-child(5) { transform: rotate(240deg); }
+.hr-group hr:nth-child(6) { transform: rotate(300deg); }
+
+/* Create the spinning animations for each group */
+.hr-group.blue { animation: spin 2s linear infinite; }
+.hr-group.red { animation: spin-reverse 2.1s linear infinite; }
+.hr-group.yellow { animation: spin 2.2s linear infinite; }
+.hr-group.green { animation: spin-reverse 2.3s linear infinite; }
+
+/* Define the keyframes for the animations */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+
+
+#arial {
+  font-family: Arial;
+
+
+  
+}
+#arial::after {
+  /* Additional, more blurred and dispersed shadow */
+  content: '';
+  position: absolute;
+  top: -50%; 
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 180deg, transparent 0%, #ff00ff 10%, #00ffff 30%, transparent 50%);
+  filter: blur(75px) opacity(0.8); 
+  z-index: -2;
+}
+
+h1 {
+  position: relative; /* Needed for positioning the pseudo-element */
+  width: 200px; /* Example size */
+  height: 100px; /* Example size */
+  overflow: hidden; /* Important to contain the shining effect */
+  border-radius: 8px; /* Optional: for rounded corners */
+
+}
+
+.content {
+  position: relative; /* To ensure content is above the pseudo-element */
+  background-color: #333; /* Background for your content */
+  color: #fff;
+  padding: 20px;
+  border-radius: 8px; /* Optional: for rounded corners */
+  /* Other content styles */
+}
+
+h1::before {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  top: 100%;
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  color: conic-gradient(from 0deg, transparent 0%, #ff00ff 20%, #00ffff 40%, transparent 60%);
+  animation: shine 5s linear infinite;
+  z-index: -1;
+  /* Add the blur filter here */
+  filter: blur(0px);
+
+}
+
+h1::after {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  top: 100%;
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 180deg, transparent 0%, #ff00ff 10%, #00ffff 30%, transparent 50%);
+  animation: shine-dispersed 5s linear infinite; /* A different animation for a dispersed look */
+  z-index: -2; /* Place it behind the first blur */
+  filter: blur(75px) opacity(0.8); /* Apply a stronger blur and lower opacity */
+}
+
+body {
+  background-color: #183A7A;
+  
+}
+
+</style>
+<script>
+// Define the overlap detection function
+function areOverlapping(el1, el2) {
+  const rect1 = el1.getBoundingClientRect();
+  const rect2 = el2.getBoundingClientRect();
+
+  const noOverlap = (
+    rect1.right < rect2.left ||
+    rect1.left > rect2.right ||
+    rect1.bottom < rect2.top ||
+    rect1.top > rect2.bottom
+  );
+
+  return !noOverlap;
+}
+
+// Get the target elements
+const credsElement = document.getElementById("arial");
+const hrElements = document.querySelectorAll(".hr-group hr");
+
+// Function to check for all overlaps
+function checkAllOverlaps() {
+  let overlapDetected = false;
+
+  hrElements.forEach(hr => {
+    if (areOverlapping(hr, credsElement)) {
+      overlapDetected = true;
+      hr.style.backgroundColor = "#393C57"
+    } else {
+      hr.style.backgroundColor = "#279CF5"
+
+    }
+  });
+
+  // Apply or remove the 'overlapping' class
+  if (overlapDetected) {
+    credsElement.classList.add("overlapping");
+  } else {
+    credsElement.classList.remove("overlapping");
+  }
+}
+
+// Run the check continuously
+setInterval(checkAllOverlaps, 1000 / 60);
+
+
+</script>
