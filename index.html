@@ -1,0 +1,64 @@
+<a href="yupthisisme.html" style="text-decoration: none; color: black;"><h1>About Me</h1></a>
+<div>
+<a href="tutorial.html" id="nrb6">run bun</a>
+</div>
+<ol>
+  <ol>Why are elephants important</ol>
+  <li>Why chicks eat poo</li>
+</ol>
+<a href="norun.html" onclick="tracker()">no run bun</a>
+<h2 id="nrb1">Why you should run bun</h2>
+<ul>
+  <li id="nrb2">Because its sigma</li>
+  <li id="nrb3">its the ultimete bunner runner</li>
+  <li id="nrb4">it supports the chickpee cascade thery</li>
+  <li id="nrb5">no one will say its not tuff</li>
+
+</ul>
+
+<h2>Trubleshooting</h2>
+<ol>
+ERR_FILE_NOT_FOUNDD`  
+</ol>
+<a href="moreinfo.html" style="text-decoration: none; color: black;">More info</a>
+<h4>I</h4>
+<h2>AM</h2>
+<h1 style="font-size: 40px;">    ===>STEVE>:)</h1>
+
+<button onclick="functioneer()" id="nrb7" style="display: none;">give me a second chance</button>
+<br>
+<br>
+<br>
+
+<script>
+
+
+let username = "notrunbunuser";
+
+// The function is called and updates local storage
+function tracker() {
+  localStorage.setItem('username', 'notrun');
+}
+
+
+
+
+let localStorageUsername = localStorage.getItem('username');
+
+if (localStorageUsername === "notrun") {
+  document.getElementById("nrb1").textContent = "dont run bun anymore"
+  document.getElementById("nrb2").textContent = "youre not a bun runner anymore"
+  document.getElementById("nrb3").textContent = "youre not a bun runner anymore"
+  document.getElementById("nrb4").textContent = "youre not a bun runner anymore"
+  document.getElementById("nrb5").textContent = "youre not a bun runner anymore"
+  document.getElementById("nrb6").textContent = "dont run bun"
+  document.getElementById("nrb7").style.display = "block";
+} else {
+  document.getElementById("nrb7").style.display = "none"
+}
+function functioneer() {
+  localStorage.setItem('username', 'notrun1');
+  window.location.reload();
+}
+
+</script>
