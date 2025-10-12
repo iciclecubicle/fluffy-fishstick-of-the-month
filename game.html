@@ -1,0 +1,1082 @@
+<body>
+<pre>
+
+
+<div class="timershrink" id="timershrink" title="Shrinks down 50% for 5s and a cooldown of 5s Costs 15 energy">Z</div>
+<p id="speedsys" class="speedsys">1| Speed:</p>
+<p id="leveldetect" class="leveldetect">Level: 1</p>
+<p id="energy" class="energy">2| Energy:</p>
+<p id="regen" class="regen">3| Regen:</p>
+</pre>
+<div id="evader">
+
+</div>
+<div id="affected">
+<div class="sys" id="sys">
+
+
+  <button class="runner" id="runner"></button>
+</div>
+<div class="hidden" id="hidden">
+<p class="custom" id="custom">&gt;_</p>
+
+<code class="hiddenp" id="hiddenp">&gt;?
+<p class="non" id="no">
+&gt;&gt;&gt;setTimeout(() => {
+    window.close();
+}, 2000);</p>
+<p class="non" id="no1">
+&gt;&gt;&gt;HAHAHAHA
+</p>
+<p class="non" id="no2">
+&gt;&gt;&gt;YOU GOT CLAPPED
+</p>
+<p class="non" id="no3">
+&gt;&gt;&gt;YOU GOT CLAPPEDD
+</p>
+<p class="non" id="no4">
+&gt;&gt;&gt; Terminating...
+</p>
+</code>
+</div>
+</body>
+<p class="textother"></p>
+<div class="laserball" id="laserball">&gt;:D
+
+  <div class="laser" id="laser"></div>
+
+  <div class="lasertrigger" id="laser16"></div>
+
+</div>
+
+
+</div>
+<style>
+
+
+.energy {
+  position: absolute;
+  top: 50px;
+  left: 10px;
+}
+.regen {
+  position: absolute;
+  top: 65px;
+  left: 10px;
+}
+.leveldetect {
+  position: absolute;
+  top: 20px;
+  left: 10px;
+}
+@keyframes cpulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 30px rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+@keyframes screenshake {
+  0%, 100% {
+    transform: translate3d(0, 0, 0); /* Start and end at original position */
+  }
+  20%, 60% {
+    transform: translate3d(-5px, 0, 0); /* Move left */
+  }
+  40%, 80% {
+    transform: translate3d(5px, 0, 0); /* Move right */
+  }
+  /* Optional: Add vertical or rotational movement for more complex shake */
+  30% {
+    transform: translate3d(0, -3px, 0) rotate(1deg); /* Move up slightly and rotate */
+    
+  }
+  70% {
+    transform: translate3d(0, 3px, 0) rotate(-1deg); /* Move down slightly and rotate */
+  }
+}
+@keyframes sepulse {
+  0% {
+    box-shadow: 0 0 10px 30px #701705
+    border-radius: 100px;
+    opacity: .3;
+    
+  }
+  10% {
+    opacity: .4;
+
+  }
+  15% {
+    opacity: .5;
+  }
+  20% {
+    opacity: .6;
+  }
+  25% {
+    opacity: .7;
+  }
+  30% {
+    opacity: .8;
+  }
+  70% {
+    box-shadow: 0 10px 0 5000px rgba(255, 255, 255, 0.4);
+    border-radius: 100px;
+
+  }
+  100% {
+    box-shadow: 0 0 0 25px #701705
+    border-radius:; 100px;
+  
+  }
+}
+@keyframes onecycle {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+#timershrink {
+  color: white;
+  width: 20px;
+  height: 20px;
+  background-color: green;
+  position: absolute;
+  left: 10;
+  top: 10;
+  border-radius: 25%;
+  border-style: solid;
+  border-width: 0px;
+  font-family: Arial, Sans-Serif;
+  
+/*  animation: timeout 1s linear 5;*/
+  
+  
+}
+#evader {
+  width: 45px;
+  height: 45px;
+  background-color: dodgerblue;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  border-radius: 300px;
+  text-align: center;
+  display: flex;            /* Make the div a flex container */
+  justify-content: center;  /* Horizontally center its content */
+  align-items: center;      /* Vertically center its content */
+  border-radius: 100px;
+
+
+}
+
+.laserball {
+  display: none;
+  position: absolute;
+  width: 30px;
+  height: 35px;
+  background-color: #2795F5;
+  border-radius: 0%;
+  top: 50%;
+  left: 50%;
+  color: red;
+  font-weight: bold;
+  box-shadow: 0 0 10px #27F5AD;
+}
+.lasertrigger {
+  opacity: .9;
+  display: none;
+  position: absolute;
+  width: 40px;
+  height: 1000px;
+
+  background: linear-gradient(to bottom, red, transparent);
+  top: 50%;
+  left: -20%;
+  box-shadow: 0 0 20px #C73214;
+  animation: sepulse .250s linear;
+  border-radius: 35px;
+  
+
+}
+.laser {
+  display: none;
+  position: absolute;
+  width: 25px;
+  height: 1000px;
+  background: linear-gradient(to bottom, #27F5AD, transparent);
+  top: 50%;
+  left: 8.5%;
+  box-shadow: 0 0 20px #27F5AD;
+  animation: cpulse .250s linear;
+  border-radius: 10px;
+  
+
+}
+
+.non {
+  display: none;
+}
+  
+
+@keyframes textother {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes opacity {
+  0% {
+    opacity: 1;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  25% {
+    opacity: 0.8;
+  }
+  35% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  60% {
+    opacity: 0.6;
+  }
+  75% {
+    opacity: 0.8;
+  }
+  85% { 
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.custom {
+  display: none;
+  text-align: left;
+  font-size: 23px;
+  color: #27F5AD;
+
+
+}
+
+.hidden {
+  display: none;
+  background-color: #08290A;
+  border-radius: 25px;
+  border-color: #27F5AD;
+  border-width: 1px;
+  border-style: solid;
+  padding: 20px;
+  animation: opacity 5s linear alternate infinite;
+}
+.hiddenp {
+  display: none;
+  text-align: left;
+  display: none;
+  font-size: 15px;
+  color: #27F5AD;;
+  animation: opacity 5s linear alternate infinite;
+  padding: 20px;
+  background-color: black;
+  border-radius: 5px;
+}
+@keyframes rotatiger {
+  0% {
+    transform: rotate(0deg);
+  }
+  360% {
+    transform: rotate(360deg);
+  }
+}
+body {
+  background-color: #7486B8;
+ 
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+
+}
+.screenshake {
+  animation: screenshake .5s linear infinite;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.runner {
+
+  display: none;
+  box-shadow: 0 0 40px 10px #280C97;
+  border-color: #425BEB;
+  border-width: 23px;
+  border-radius: 1000px;
+  background-image: linear-gradient(45deg, #27F5E0, #27F5A9, #375E5A);
+  clip-path: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%);
+  padding: 40px;
+
+}
+
+.sys {
+  display: none;
+  filter: drop-shadow(0px 0px 10px #2C05F7);
+  position: absolute;
+  border-color: #425BEB;
+  border-width: 20px;
+  border-radius: 1000px;
+
+  padding: 140px;
+
+  opacity: 1;
+}
+@keyframes rotating {
+  0% {
+    transform: rotate(0deg);
+  }
+  30% {
+    transform: rotate(90deg);
+  }
+  70% {
+    transform: rotate(100deg);
+  }
+  85% {
+    transform: rotate(180deg);
+  }
+  99% {
+    transform: rotate(380deg);
+  }
+  100% {
+    transform: rotate(3721deg);
+  }
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 30px #173054;
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+.sys:hover{
+  animation: pulse 0.3s ease-in-out infinite;
+}
+.flare {
+  visibility: visible;
+  display: block;
+  background-color: blue;
+
+  animation-name: pulse, rotating;
+  animation-duration: 0.3s;
+
+
+
+  padding: 13px;
+  border-radius: 100px;
+  border-color: #09EDB4;
+  border-width: 7;
+}
+.gunner {
+  position: absolute;
+  visibility: visible;
+  display: block;
+  background-color: blue;
+  border-width: 5px;
+  background-image: linear-gradient(45deg, #375E5A #27F5A9, #375E5A);
+  padding: 10px;
+  border-radius: 20px;
+
+}
+@keyframes timeout {
+  0% {
+    border-width: 4px;
+    border-color: black;
+  }
+  100% {
+    border-width: 4px;
+    border-color: black;
+  }
+}
+#speedsys {
+  left: 10px;
+  top: 35px;
+  position: absolute;
+}
+</style>
+
+<script>
+  function nextInitialize() {
+let regen = document.getElementById("regen")
+let energy = document.getElementById("energy")
+let increaseRate = 1;
+let currentEnergy = 30;
+let maximumE = 30;
+let defualtspeed = 10;
+let speed = 0;
+
+let speex;
+function reco() {
+ speex = defualtspeed - 4
+ requestAnimationFrame(reco)
+} 
+reco()
+
+
+
+function regenfunct() {
+
+  let increaseToScale = increaseRate/100
+  if (maximumE > currentEnergy) {
+  setTimeout(() => {
+    currentEnergy = (currentEnergy + increaseToScale);
+  }, 100)
+  } else if (maximumE < currentEnergy) {
+    currentEnergy = maximumE;
+  }
+
+  regen.textContent = `3| Regen: ${increaseRate.toFixed(1)}`
+  let unFloat = Math.trunc(currentEnergy)
+  energy.textContent = `2| Energy: ${unFloat}/${maximumE}`;
+  requestAnimationFrame(regenfunct)
+} requestAnimationFrame(regenfunct)
+regenfunct()
+let initOne = false
+let initTwo = false
+let initThree = false
+
+const cshrink = document.getElementById("timershrink");
+
+document.body.addEventListener("keydown", () => {
+
+  if (event.key === "2" && !initTwo && pointT >= 1) {
+    maximumE = maximumE + 5;
+    pointT--;
+    initTwo = true;
+    setTimeout(() => {
+      initTwo = false;
+    }, 100)
+  }
+  if (event.key === "1" && !initOne && pointT >= 1) {
+    defualtspeed += 0.5
+
+    pointT--;
+    initOne = true;
+    setTimeout(() => {
+      initOne = false;
+    }, 100)
+  }
+  if (event.key === "3" && !initThree && pointT >= 1) {
+    pointT--;
+    increaseRate += Math.round(.2 * 10) / 10;
+
+    initThree = true;
+    setTimeout(() => {
+      initThree = false;
+    }, 100)
+  }
+})
+let lD = document.getElementById('leveldetect');
+let token;
+const laser1 = document.getElementById("laser2");
+
+const laserball = document.getElementById("laserball");
+function lazer() {
+  laserball.style.display = "block"
+
+  laser16.style.display = "block";
+
+  setTimeout(() => {
+    laser16.style.display = "none";
+    laser.style.display = "block";
+    laserball.style.transform = "rotate(36deg)";
+    laser.style.opacity = 0.4
+
+  }, 1125);
+    setTimeout(() => {
+
+    laserball.style.transform = "rotate(54deg)";
+    laser.style.opacity = 0.6
+
+  }, 1250);
+      setTimeout(() => {
+
+    laserball.style.transform = "rotate(72deg)";
+    laser.style.opacity = 0.8
+
+  }, 1375);
+      setTimeout(() => {
+    laser.style.display = "none";
+    laser16.style.display = "block";
+    laserball.style.transform = "rotate(90deg)";////
+
+  }, 1500);
+      setTimeout(() => {
+    laser16.style.display = "none";
+    laser.style.display = "block";
+    laserball.style.transform = "rotate(108deg)";
+    laser.style.opacity = 0.2
+
+  }, 2625);
+      setTimeout(() => {
+
+    laserball.style.transform = "rotate(126deg)";
+    laser.style.opacity = 0.4
+
+  }, 2750);
+      setTimeout(() => {
+
+    laserball.style.transform = "rotate(144deg)";
+    laser.style.opacity = 0.6
+
+  }, 2875);
+      setTimeout(() => {
+
+    laserball.style.transform = "rotate(162deg)";
+    laser.style.opacity = 0.8
+  }, 3000);
+      setTimeout(() => {
+    laser.style.display = "none";
+    laser16.style.display = "block";
+    laserball.style.transform = "rotate(180deg)";///
+  }, 3125);
+        setTimeout(() => {
+    laser16.style.display = "none";
+    laser.style.display = "block";
+    laserball.style.transform = "rotate(198deg)";
+    laser.style.opacity = 0.2
+  }, 4250);
+        setTimeout(() => {
+
+    laserball.style.transform = "rotate(216deg)";
+    laser.style.opacity = 0.4
+  }, 4375);
+        setTimeout(() => {
+    laser13.style.display = "none";
+    laser14.style.display = "block";
+    laserball.style.transform = "rotate(234deg)";
+    laser.style.opacity = 0.6
+  }, 4500);
+        setTimeout(() => {
+
+    laserball.style.transform = "rotate(252deg)";
+    laser.style.opacity = 0.8
+  }, 4625);
+        setTimeout(() => {
+    laser.style.display = "none";
+    laser16.style.display = "block";
+    laserball.style.transform = "rotate(270deg)";///
+  }, 4750);
+        setTimeout(() => {
+    laser16.style.display = "none";
+    laser.style.display = "block";
+    laserball.style.transform = "rotate(288deg)";
+    laser.style.opacity = 0.2
+  }, 5875);
+        setTimeout(() => {
+
+    laserball.style.transform = "rotate(306deg)";
+    laser.style.opacity = 0.4
+  }, 6000);
+        setTimeout(() => {
+
+    laserball.style.transform = "rotate(324deg)";
+    laser.style.opacity = 0.6
+  }, 6125);
+        setTimeout(() => {
+
+    laserball.style.transform = "rotate(342deg)";
+    laser.style.opacity = 0.8
+  }, 6250);
+      setTimeout(() => {
+    laser.style.display = "none";
+    laser16.style.display = "block";
+    laserball.style.transform = "rotate(360deg)"; ///
+    lazer()
+  }, 6370);
+
+
+  
+  
+
+}
+const speedsys = document.getElementById("speedsys")
+function countdown() {
+  cshrink.textContent = "5"
+  setTimeout(() => {
+    cshrink.textContent = "4"
+  }, 1000);
+  setTimeout(() => {
+    cshrink.textContent = "3"
+  }, 2000);
+  setTimeout(() => {
+    cshrink.textContent = "2"
+  }, 3000);
+  setTimeout(() => {
+    cshrink.textContent = "1"
+  }, 4000);
+  setTimeout(() => {
+    cshrink.textContent = "5"
+  }, 5000);
+  setTimeout(() => {
+    cshrink.textContent = "4"
+  }, 6000);
+  setTimeout(() => {
+    cshrink.textContent = "3"
+  }, 7000);
+  setTimeout(() => {
+    cshrink.textContent = "2"
+  }, 8000);
+  setTimeout(() => {
+    cshrink.textContent = "1"
+  }, 9000);
+
+  
+}
+const evader = document.getElementById('evader');
+let outter = false;
+let rect;
+let token1;
+let rectG;
+
+function reload() {
+ 
+ rect = evader.getBoundingClientRect();
+ if (rect.right > window.innerWidth || rect.bottom > window.innerHeight || rect.left < 0 || rect.top < 0) {
+   outter = true;
+ }
+ requestAnimationFrame(reload);
+}
+requestAnimationFrame(reload);
+
+
+
+
+
+let shrink = false;
+document.addEventListener('DOMContentLoaded', () => {
+    
+
+    
+    const keys = {
+      ArrowUp: false,
+      ArrowDown: false,
+      ArrowLeft: false,
+      ArrowRight: false,
+      Shift: false,
+      z: false,
+
+
+    };
+    if (keys) {
+      speed = 0;
+    }
+
+
+
+
+    
+
+ 
+    document.addEventListener('keydown', (e) => {
+        if (keys.hasOwnProperty(e.key)) {
+            keys[e.key] = true;
+        }
+
+        if (e.key === "Shift") {
+          evader.style.backgroundColor = "#27D6F5"
+        }
+
+        if (e.key === "z" && shrink === false && currentEnergy >= 15) {
+          countdown();
+          cshrink.style.display = "block"
+          evader.style.width = "20px";
+          evader.style.height = "20px";
+          shrink = true;
+          cshrink.style.borderWidth = "2px"
+          cshrink.style.borderColor = "black"
+          cshrink.style.backgroundColor = "blue"
+          currentEnergy -= 15;
+          
+          
+          setTimeout(() => {
+
+            cshrink.style.borderWidth = "0px"
+            evader.style.width = "45px";
+            evader.style.height = "45px";
+//
+            cshrink.animate([
+          { boxShadow: "0 0 0 0 rgba(255, 255, 255, 0.4)" }, 
+          { boxShadow: "0 0 0 30px rgba(255, 255, 255, 0)" },
+          { boxShadow: "0 0 0 0 rgba(255, 255, 255, 0)" }
+         ], {
+            duration: 1000,
+            easing: 'ease-in-out',
+            iterations: '5',
+           });
+//
+            setTimeout(() => {
+              cshrink.style.background = "green"
+              cshrink.style.borderWidth = "0px"
+              cshrink.textContent = "Z"
+              shrink = false;
+            }, 5000);
+            
+          }, 5000);
+
+        }
+    });
+
+    document.addEventListener('keyup', (e) => {
+        if (keys.hasOwnProperty(e.key)) {
+            keys[e.key] = false;
+        }
+        if (e.key === 'Shift') {
+          evader.style.backgroundColor = "dodgerblue"
+        }
+    });
+
+    let step2 = false;
+function alleyoop() {
+  let evaderX = evader.offsetLeft;
+  let evaderY = evader.offsetTop;
+
+  // Calculate potential new positions
+  let newX = evaderX;
+  let newY = evaderY;
+
+  // Determine the new speed
+  if (keys.Shift && (keys.ArrowUp || keys.ArrowDown || keys.ArrowLeft || keys.ArrowRight)) {
+    speed = speex;
+  } else if (!keys.ArrowUp && !keys.ArrowDown && !keys.ArrowLeft && !keys.ArrowRight) {
+    speed = 0;
+  } else {
+    speed = defualtspeed;
+    
+  }
+
+  // Update position based on key presses and check boundaries
+  if (keys.ArrowUp) {
+    newY = evaderY - speed;
+    if (newY >= 0) {
+      evaderY = newY;
+    }
+  }
+  if (keys.ArrowDown) {
+    newY = evaderY + speed;
+    const maxBottom = window.innerHeight - evader.offsetHeight;
+    if (newY <= maxBottom) {
+      evaderY = newY;
+    }
+  }
+  if (keys.ArrowLeft) {
+    newX = evaderX - speed;
+    if (newX >= 0) {
+      evaderX = newX;
+    }
+  }
+  if (keys.ArrowRight) {
+    newX = evaderX + speed;
+    const maxRight = window.innerWidth - evader.offsetWidth;
+    if (newX <= maxRight) {
+      evaderX = newX;
+    }
+  }
+  
+  // Apply the final positions to the element
+  evader.style.left = `${evaderX}px`;
+  evader.style.top = `${evaderY}px`;
+  
+  // (Optional) Call your spawnact function
+  if (keys.ArrowUp || keys.ArrowDown || keys.ArrowLeft || keys.ArrowRight) {
+    spawnact();
+  }
+
+  speedsys.textContent = `1| Speed = ${speed}`;
+
+  requestAnimationFrame(alleyoop);
+}
+
+
+    alleyoop();
+});
+
+function finalclickdown() {
+  energy.style.display = "none"
+  regen.style.display = "none"
+  lD.style.display = "none"
+  token.style.display = "none"
+  
+  lazer = function() {}; 
+  
+  document.getElementById("affected").classList.remove('screenshake')
+  document.body.addEventListener('keydown', () => {
+    event.stopImmediatePropagation();
+  });
+
+  // Use querySelectorAll and forEach to properly hide all elements with the class
+  document.querySelectorAll(".flare").forEach(el => {
+    el.style.display = "none";
+  });
+  document.querySelectorAll(".gunner").forEach(el => {
+    el.style.display = "none";
+  });
+  document.querySelectorAll(".laser").forEach(el => {
+    el.style.display = "none";
+  });
+  
+  evader.style.display = "none"
+  timershrink.style.display = "none"
+  speedsys.style.display = "none"
+  document.getElementById("laserball").style.display = "none"
+  document.body.style.backgroundColor = "#0A3D22";
+  document.getElementById("runner").style.display = "none";
+  document.getElementById("sys").style.display = "none";
+  document.getElementById("hiddenp").style.display = "block";
+  document.getElementById("hidden").style.display = "block";
+  document.getElementById("custom").style.display = "block";
+
+  setTimeout(() => {
+    document.getElementById("no").style.display = "block";
+  }, 500);
+  setTimeout(() => {
+    document.getElementById("no1").style.display = "block";
+  }, 1000);
+  setTimeout(() => {
+    document.getElementById("no2").style.display = "block";
+  }, 1500);
+  setTimeout(() => {
+    document.getElementById("no3").style.display = "block";
+  }, 2000);
+  setTimeout(() => {
+    document.getElementById("no4").style.display = "block";
+  }, 2500);
+  setTimeout(() => {
+    window.close();
+  }, 3000);
+
+}
+
+
+function moverBariable() {
+
+  const rotateInterval = Math.random() * (360 - (-360)) + (-360);
+  const sys = document.getElementById("sys")
+  const heightControl = window.innerHeight;
+  const widthControl = window.innerWidth;
+  const elemHite = sys.offsetHeight;
+  const elemWith = sys.offsetWidth;
+  
+  
+
+  const yCoord = heightControl - elemHite
+  const xCoord = widthControl - elemWith
+  
+  const width = Math.random() * xCoord;
+  const height = Math.random() * yCoord;
+  
+  sys.style.transition = "transform 0.3s ease-in-out, top 0.3s ease-in-out, left 0.3s ease-in-out"
+
+  sys.style.top = height + "px";
+  sys.style.left = width + "px";
+  sys.style.transform = "rotate(" + rotateInterval + "deg)";
+
+
+
+}
+
+
+
+
+function hexes() {
+  const rawHexInt = Math.floor(Math.random() * 16777215);
+  let hexColor = rawHexInt.toString(16);
+  hexColor = hexColor.padStart(6, '0');
+  return '#' + hexColor;
+}
+
+  
+
+
+const sys = document.getElementById("sys");
+const body = document.body;
+
+let isOnCooldown = false;
+let mouseX = 0;
+let mouseY = 0;
+document.body.addEventListener("mousemove", () => {
+  mouseX = event.clientX;
+  mouseY = event.clientY;
+});
+  
+
+function flare(event) {
+  if (isOnCooldown) {
+    return;
+  }
+
+  isOnCooldown = true;
+  
+  const rotateInterval2 = Math.random() * (360 - (-360)) + (-360);
+
+  const myFlare = document.createElement('button');
+  myFlare.className = 'flare';
+  myFlare.style.position = 'absolute';
+  myFlare.style.left = rect.left + 'px';
+  myFlare.style.top = rect.top + 'px';
+  myFlare.style.transform = "rotate(" + rotateInterval2 + "deg)";
+
+  
+  const gun = document.createElement("div");
+  gun.className = "gunner";
+  function reload1() {
+    rectG = gun.getBoundingClientRect();
+      if (rect.right > rectG.left &&
+    rect.left < rectG.right &&
+    rect.bottom > rectG.top &&
+    rect.top < rectG.bottom) {
+      finalclickdown();
+      
+    }
+
+    requestAnimationFrame(reload1);
+  }
+  requestAnimationFrame(reload1);
+
+
+
+  setTimeout(() => {
+    gun.animate([
+  { transform: `translate(0px, 0px)` }, // from
+  { transform: `translate(${mouseX}px, ${mouseY}px)` }   // to
+], {
+      duration: 1500,
+      easing: 'ease-in-out',
+      fill: 'forwards',
+      iterations: '10000',
+      direction: 'alternate'
+    })
+  }, 100);
+
+setTimeout(() => {
+  myFlare.appendChild(gun)
+  myFlare.style.visibility = "hidden"
+}, 300);
+
+
+document.body.appendChild(myFlare);
+setTimeout(() => {
+  isOnCooldown = false;
+}, 1000);
+}
+
+
+
+
+
+
+function spawnact() {
+  const newColor = hexes();
+  body.style.backgroundColor = newColor;
+  document.body.style.transition =  "background-color 0.15s ease-in";
+  flare(event);
+  moverBariable();
+
+  
+};
+const lasers = [...document.querySelectorAll(".lasertrigger")]
+function collision(a, b) {
+  return (
+    a.left < b.right &&
+    a.right > b.left &&
+    a.top < b.bottom &&
+    a.bottom > b.top)
+}
+function lasercollision() {
+  const rectervector = evader.getBoundingClientRect();
+  lasers.forEach(laser => {
+    
+    if (laser.style.display !== "none") {
+      const rectL = laser.getBoundingClientRect();
+      
+       
+      if (collision(rectervector, rectL)) {
+        finalclickdown();
+        
+      }
+    }
+  });
+  requestAnimationFrame(lasercollision);
+}
+requestAnimationFrame(lasercollision)
+let tokenspawnx;
+let tokenspawny;
+let tokenX = (window.innerWidth) - 40
+let tokenY = (window.innerHeight) - 40
+
+function getscreenrandom() {
+
+  tokenspawny = Math.random() * tokenY;
+  tokenspawnx = Math.random() * tokenX;
+  requestAnimationFrame(getscreenrandom)
+
+}
+
+getscreenrandom()
+let points = 1;
+let pointT = 0;
+let execution = false;
+function tokenizer() {
+
+  token = document.createElement('div')
+  
+  token.style.position = "absolute"
+  token.style.width = "40px"
+  token.style.height = "40px"
+  token.style.top = tokenspawny + "px";
+  token.style.left = tokenspawnx + "px";
+  token.style.backgroundColor = "yellow"
+  token.style.borderRadius = "100px"
+  document.body.appendChild(token)
+  function reloadtoken() {
+    token1 = token.getBoundingClientRect();
+      if (rect.right > token1.left &&
+    rect.left < token1.right &&
+    rect.bottom > token1.top &&
+    rect.top < token1.bottom) {
+      points++;
+      pointT++;
+      if (!execution) {
+      lazer()
+      execution = true;
+      }
+      requestAnimationFrame(getscreenrandom)
+      token.style.left = tokenspawnx + "px"
+      token.style.top = tokenspawny + "px"
+      lD.textContent = "Level: " + points
+      
+     document.getElementById("affected").classList.add('screenshake')
+      
+    } requestAnimationFrame(reloadtoken)
+} requestAnimationFrame(reloadtoken)
+}
+tokenizer()
+}
+nextInitialize()
+</script>
