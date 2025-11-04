@@ -1,0 +1,285 @@
+<div id="topcollapser"><p id="coins" title="the currency! press backtick to -1 coin">hi</p><div style="padding: 10px;"><a href="game.html"><button style="right: 5px;" id="skip" onclick='localStorage.setItem("Coinss", ct.toString());'>Continue</button></a></div></div>
+
+<div id=upgrades>
+ <h1>Shop</h1>
+ <p>Hover over elements to learn their function</p>
+ <div class="upgradeMed itemHover" id="unlock1">
+   <h2>Flux</h2>
+   <p id="descFlux">Unlock ability -- max level ability unlock = Level 5</p>
+   <p id="ulevel1">Level 0/1</p>
+   <br>
+   <p id="costFlux">Cost: 300 coins</p>
+
+ </div>
+ <br>
+  <div class="upgradeMed itemHover" id="unlock2">
+   <h2>Icicle rockets</h2>
+   <p id="descIR">Unlock ability -- max level ability unlock = Level 10</p>
+   <p id="ulevel2">Level 0/1</p>
+   <br>
+   <p id="costIR">Cost: 650 coins</p>
+ </div>
+</div>
+<style>
+#unlock2 {
+  display: none;
+}
+.itemHover {
+  transition: transform 0.2s ease-in-out;
+}
+.itemHover:hover {
+  
+  transform: scale(1.1);
+}
+.upgradeLow {
+  background-color: green;
+  border-radius: 20%;
+  padding: 10px;
+  
+}
+.upgradeMed {
+  background-color: orange;
+  border-radius: 20%;
+  padding: 10px;
+}
+.upgradeHigh {
+  background-color: red;
+  border-radius: 20%;
+  padding: 10px;
+}
+#upgrades {
+    position: absolute;
+    /* top: 50%; */ /* Remove or comment out this line */
+    top: 4em; /* Add this line to position it below the topcollapser with a 1em gap */
+    left: 50%;
+    transform: translate(-50%, 0%); /* Change transform to only move horizontally */
+    font-family: arial;
+    
+    background-color: #a1c2b8;
+    padding: 40px;
+    border-radius: 20%;
+    max-height: 100vw;
+    overflow-y: auto;
+}
+
+
+#topcollapser {
+  position: absolute;
+  left: 0%;
+  top: 0%;
+  height: 3em;
+  width: 100%;
+  display: flex; 
+  align-items: center;
+
+  background-color: #9dd1c1;
+  
+}
+  #coins {
+    position: absolute;
+    font-family: Arial;
+    font-size: 20px;
+    left: 10px;
+    width: 19000px;
+    padding: 0px;
+
+  }
+  #skip {
+    position: absolute;
+    right: 10px;
+    top: 9px;
+    background-color: #3cd6a8;
+    border-color: green;
+    height: 2.25em;
+    border-radius: 5%;
+  }
+  body {
+    overflow: hidden;
+    background: linear-gradient(45deg, #c6bfdb, #beb4d9, #a79bc9, #9384bd, #7a68ab, #604d94, #45327a, #36226b, #2a1469, #2e1082, #1c156e, #21178f, #2e23a8, #4237b8, #5a51c4, #677cc7, #7e8fcc, #747fa6, #626a85, #515566, #3d404a, #3d4a4a, #293838, #1e3030, #142626, #142e2e, #184747, #184747, #184747);
+    background-size: 400% 100%; /* Make the background larger than the element to allow for movement */
+    animation: gradientMotion 30s ease infinite; /* Apply the animation */
+  }
+
+
+  @keyframes gradientMotion {
+    0% {
+      background-position: 0% 50%; 
+    }
+    50% {
+      background-position: 100% 50%; 
+    }
+    100% {
+      background-position: 0% 50%; 
+    }
+  }
+  @keyframes cpulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+    }
+
+    70% {
+      box-shadow: 0 0 0 30px rgba(255, 255, 255, 0);
+    }
+
+    100% {
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    }
+  }
+  @keyframes screenshake {
+
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
+     
+    }
+
+    20%,
+    60% {
+      transform: translate3d(-1px, 0, 0);
+  
+    }
+
+    40%,
+    80% {
+      transform: translate3d(1px, 0, 0);
+  
+    }
+
+
+    30% {
+      transform: translate3d(0, -1px, 0) rotate(0.02deg);
+  
+
+    }
+
+    70% {
+      transform: translate3d(0, 1px, 0) rotate(-0.02deg);
+
+    }
+  }
+  .cpulse2 {
+    animation: cpulse 1s ease-in-out 1;
+  }
+  .screenshake {
+    color: red;
+    
+    animation: screenshake 0.7s ease-in-out 1;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 0px;
+  }
+</style>
+
+<script>
+//Main aspe
+document.addEventListener("keydown", (event) => {
+  if (event.key === "`" && ct > 0) {
+    ct -= 1;
+    update()
+  }
+})
+const coinsTotalString = localStorage.getItem("Coinss") ?? '0';
+
+
+let ct = parseInt(coinsTotalString, 10); 
+
+
+const coinsStorageString = localStorage.getItem("Coins") ?? '0';
+const coinsToAdd = parseInt(coinsStorageString, 10);
+
+ct += coinsToAdd;
+
+
+const coinsElement = document.getElementById("coins");
+if (coinsElement) {
+    coinsElement.textContent = "Coins: " + ct;
+}
+function update() {
+  coinsElement.textContent = "Coins: " + ct;
+}
+//End main aspects
+
+//Shop items
+function notEnoughCoins() {
+  coinsElement.classList.add("screenshake")
+
+  setTimeout(() => {
+    coinsElement.classList.remove("screenshake")
+  }, 1000)
+}
+function maxLevel(element) {
+  element.classList.add("screenshake") 
+  setTimeout(() => {
+    element.classList.remove("screenshake")
+  }, 1000)
+}
+function fallbackStatementL(ability, element) {
+  if (ability === 'true') {
+    maxLevel(element)
+  } else {
+    notEnoughCoins()
+
+  }
+}
+
+
+const unlock1 = document.getElementById("unlock1")
+const unlock2 = document.getElementById("unlock2")
+
+
+
+function eventListeners() {
+  if (localStorage.getItem("unlockAbility1") === 'true') {
+    document.getElementById("costFlux").style.display = "none"
+    document.getElementById("descFlux").textContent = "Max level ability unlock = Level 5";
+    document.getElementById("ulevel1").textContent = "Level 1/1"
+    localStorage.setItem("?Flux", true)
+    unlock2.style.display = "block"
+    update()
+  }
+  if (localStorage.getItem("unlockAbility2") === "true") {
+    document.getElementById("costIR").style.display = "none"
+    document.getElementById("descIR").textContent = "Max level ability unlock = Level 10"
+    document.getElementById("ulevel2").textContent = "Level 1/1"
+    localStorage.setItem("?IR", true)
+    update()
+  }
+  requestAnimationFrame(eventListeners)
+}
+eventListeners()
+
+
+
+
+
+
+
+unlock1.addEventListener("click", () => {
+  if (ct >= 300) {
+    localStorage.setItem("unlockAbility1", true)
+    ct -= 300
+    
+  } else {
+    fallbackStatementL(localStorage.getItem("unlockAbility1"), ulevel1)
+  }
+})
+
+unlock2.addEventListener("click", () => {
+  if (ct >= 650) {
+    localStorage.setItem("unlockAbility2", true)
+    ct -= 650
+  } else {
+    fallbackStatementL(localStorage.getItem("unlockAbility2"), ulevel2)
+  }
+})
+
+
+
+
+
+
+
+
+
+
+</script>
