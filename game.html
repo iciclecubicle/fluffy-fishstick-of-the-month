@@ -1,16 +1,23 @@
 <body>
 <pre>
+<div id="timercontent" style="display: none"></div>
+<div class="timershrink" id="timerliquefy">X</div>
+<div class="timershrink" id="timerflare">C</div>
+<div class="timershrink" id="timershrink">Z</div>
+<div class="timershrink powershrink" id="powerfreeze">Freeze</div>
 
-<div class="timershrink" id="timerflare" title="Spawns 4 high-speed missiles that target the nearest vulnerable enemy but explodes in .5 seconds. Cooldown = 7 seconds Costs 20 energy">X</div>
-<div class="timershrink" id="timershrink" title="Shrinks down 50% for 5s and a cooldown of 5s Costs 15 energy">Z</div>
 <p id="speedsys" class="speedsys">1| Speed:</p>
 <p id="leveldetect" class="leveldetect">Level: 1</p>
 <p id="energy" class="energy">2| Energy:</p>
 <p id="regen" class="regen">3| Regen:</p>
-</pre>
-  <div id="evader">
+<p id="exp" class="exp">Points: 0</p>
 
-  </div>
+</pre>
+<div id="evader">
+  <div id="powerup1"></div>
+</div>
+
+  
   <div id="affected">
     <div class="sys" id="sys">
       <button class="runner" id="runner"></button>
@@ -20,34 +27,51 @@
 
       <code class="hiddenp" id="hiddenp">&gt;?
 <p class="non" id="no">
-&gt;&gt;&gt;setTimeout(() => {
-    window.close();
-}, 2000);</p>
+&gt;&gt;&gt; coins for this session: </p>
 <p class="non" id="no1">
-&gt;&gt;&gt;HAHAHAHA
+&gt;&gt;&gt; high score:
 </p>
 <p class="non" id="no2">
-&gt;&gt;&gt;YOU GOT CLAPPED
+&gt;&gt;&gt; level: 
 </p>
-<p class="non" id="no3">
-&gt;&gt;&gt;YOU GOT CLAPPEDD
-</p>
-<p class="non" id="no4">
-&gt;&gt;&gt; Terminating...
-</p>
+<button class="non" id="no3"><a href="shop.html">
+&gt;&gt;&gt; shop 
+</button></a>
+<div style="padding: 10px"></div>
+<button class="non" id="no4" onclick="window.location.reload()">
+&gt;&gt;&gt; skip
+</button>
 </code>
     </div>
 </body>
 <p class="textother"></p>
-<div class="laserball" id="laserball">&gt;:D
 
-  <div class="laser" id="laser"></div>
-
-  <div class="lasertrigger" id="laser16"></div>
-
-</div>
 </div>
 <style>
+#powerup1 {
+  opacity: 0;
+  padding: 350px;
+  border-radius: 100%;
+  background-color: blue;
+
+}
+#timercontent {
+  position: absolute;
+  background-color: black;
+  opacity: .7;
+  color: white;
+  font-family: arial;
+  font-size: 15px;
+  border-radius: 15%;
+  padding: 15px;
+  right: 10px;
+  top: 10px;
+  
+}
+#timerliquefy {
+  display: none;
+  left: 2.25em;
+}
 .flarhom {
   position: absolute;
   top: 50%;
@@ -89,6 +113,11 @@
     top: 65px;
     left: 10px;
   }
+  .exp {
+    position: absolute;
+    top: 80px;
+    left: 10px;
+  }
 
   .leveldetect {
     position: absolute;
@@ -110,7 +139,7 @@
     }
   }
 .cpulse2 {
-  animation: cpulse 1s ease-in-out;
+  animation: cpulse 1s ease-in-out 10;
 }
   @keyframes sheepulse {
     0% {
@@ -238,12 +267,12 @@
   }
 
   #timershrink {
-    left: 10px;
+    left: .50em;
   }
 
   #timerflare {
     display: none;
-    left: 2.27em;
+    left: 4em;
   }
 
   #evader {
@@ -265,47 +294,11 @@
     border-radius: 100px;
   }
 
-  .laserball {
-    display: none;
-    position: absolute;
-    width: 30px;
-    height: 35px;
-    background-color: #2795F5;
-    border-radius: 0%;
-    top: 50%;
-    left: 50%;
-    color: red;
-    font-weight: bold;
-    box-shadow: 0 0 10px #27F5AD;
-  }
 
-  .lasertrigger {
-    opacity: .9;
-    display: none;
-    position: absolute;
-    width: 40px;
-    height: 1000px;
 
-    background: linear-gradient(to bottom, red, transparent);
-    top: 50%;
-    left: -20%;
-    box-shadow: 0 0 20px #C73214;
-    animation: sepulse .250s linear;
-    border-radius: 35px;
-  }
 
-  .laser {
-    display: none;
-    position: absolute;
-    width: 25px;
-    height: 1000px;
-    background: linear-gradient(to bottom, #27F5AD, transparent);
-    top: 50%;
-    left: 8.5%;
-    box-shadow: 0 0 20px #27F5AD;
-    animation: cpulse .250s linear;
-    border-radius: 10px;
-  }
+
+
 
   .non {
     display: none;
@@ -492,7 +485,7 @@
     position: absolute;
     width: 20px;
     height: 20px;
-    background-color: #F70505;
+    background-color: #3A6F91;
     border-radius: 200px;
   }
 
@@ -544,13 +537,77 @@
     border-style: solid;
     border-width: 0px;
   }
+#powerfreeze {
+  width: 60px;
+  padding: 2.2px;
+  left: 10px;
+  top: 96.5%;
+  bottom: 10px;
+
+}
 </style>
 
 <script>
+  
+const textdepth = document.getElementById("timercontent")
+const textdeput = document.querySelectorAll(".timershrink")
+textdeput.forEach(x => {
+  x.addEventListener("mouseout", () => {
+    textdepth.textContent = " "
+    textdepth.style.display = 'none'
+  })
+  x.addEventListener("mouseover", () => {
+    textdepth.style.display = "block"
+  })
+})
+document.getElementById("timerliquefy").addEventListener("mouseover", () => {
+
+  textdepth.textContent = `Flux
+  
+  Turn yourself into an unstable state
+  of liquid matter making yourself 
+  invincible for 3 seconds but becoming
+  2x bigger and every enemy you hit 
+  becomes charged(1.5x faster) for 10s
+  (Also activates on contact of an enemy)
+  Cooldown = 10 seconds
+  Costs 15 energy`
+})
+document.getElementById("powerfreeze").addEventListener("mouseover", () => {
+
+  textdepth.textContent = `Freeze
+  
+  Make mobile balls stop
+  moving for 3 seconds
+  within a 550px radius
+  Cooldown = 10s`
+})
+document.getElementById("timerflare").addEventListener("mouseover", () => {
+
+  textdepth.textContent = `Icicle rockets
+  
+  Spawns 4 high-speed missiles
+  that target the nearest vulnerable
+  enemy but explodes in .5 seconds 
+  Cooldown = 7 seconds
+  Costs 20 energy`
+});
+document.getElementById('timershrink').addEventListener('mouseover', () => {
+  textdepth.textContent = `Breathing in
+  
+  Shrinks down 50% for 5s 
+  Cooldown = 5 seconds
+  Costs 15 energy`;
+});
 
 let points = 1;
 let pointT = 0;
-
+//let highScoreList = []
+function leveldetere() {
+  document.getElementById('no2').textContent = ">>> level: " + points
+  requestAnimationFrame(leveldetere)
+}
+requestAnimationFrame(leveldetere)
     function collision(a, b) {
       return (
         a.left < b.right &&
@@ -562,17 +619,46 @@ let pointT = 0;
       collision(a, b);
     }
   function nextInitialize() {
+    
+
+    let cliquefy = document.getElementById("timerliquefy")
     let regen = document.getElementById("regen")
     let energy = document.getElementById("energy")
     let gun;
     let increaseRate = 1;
     let currentEnergy = 30;
     let maximumE = 30;
-    let defualtspeed = 10;
+    let defualtspeed = 7;
     let speed = 0;
-    function reload() {
+    let homer;
+    const guns = []
+    let speedg = 7
+    let speed2 = 4;
+    let xthrow = false;
+    let invi1 = false;
+    let xonclick = false;
+    let xactivity = false;
+    let pointDisplay = 0
+    let checkiftrue = true
+    let speedFactor = 5
+    let speedsub = 0
+    const exp = document.getElementById("exp")
+    const powerup1 = document.getElementById("powerup1")
+    let powerupCoa = false;
+    let powerupCoal = 0;
+    let powerup1cd = true;
+    const uFlux = localStorage.getItem("?Flux");
+    const uIR = localStorage.getItem("?IR")
+    
+    
 
+
+
+    
+    function reload() {
+      exp.textContent = `Points: ${pointT}`
       rect = evader.getBoundingClientRect();
+
       if (rect.right > window.innerWidth || rect.bottom > window.innerHeight || rect.left < 0 || rect.top < 0) {
         outter = true;
       }
@@ -581,7 +667,7 @@ let pointT = 0;
     requestAnimationFrame(reload);
     let speex;
     function reco() {
-      speex = defualtspeed - 4
+      speex = defualtspeed / 2
       requestAnimationFrame(reco)
     }
     reco()
@@ -606,16 +692,120 @@ let pointT = 0;
     let initOne = false
     let initTwo = false
     let initThree = false
+function countDown2(enabled, cooldown, indicator, letter) {
+  let i1 = enabled;
+  let i2 = cooldown;
 
+  function runEnabledCountdown() {
+    indicator.textContent = i1;
+    indicator.style.backgroundColor = "blue";
+    indicator.style.borderWidth = "2px";
+
+    if (i1 > 0) {
+
+      i1--;
+      setTimeout(runEnabledCountdown, 1000);
+    } else {
+      runCooldownCountdown();
+    }
+  }
+
+
+  function runCooldownCountdown() {
+    indicator.style.borderWidth = "0px";
+    indicator.classList.add("cpulse2");
+    indicator.textContent = i2;
+
+    if (i2 > 0) {
+      i2--;
+      setTimeout(runCooldownCountdown, 1000);
+    } else {
+
+      indicator.classList.remove("cpulse2");
+      indicator.style.backgroundColor = "green";
+      indicator.textContent = letter;
+    }
+  }
+  runEnabledCountdown();
+}
+    let gasR = false;
     const cshrink = document.getElementById("timershrink");
 
-    document.body.addEventListener("keydown", () => {
-      if (event.key === "x" && points >= 5) {
+    let keyxcall = false;
+    function keyx() {
+      if (!keyxcall && currentEnergy >= 15) {
+        xactivity = true;
+        setTimeout(() => {
+          xactivity = false;
+        }, 3000)
+      
+      keyxcall = true;
+      if (xonclick) {
+      evader.style.backgroundColor = "red"
+      setTimeout(() => {
+        evader.style.backgroundColor = "dodgerblue"
+        xonclick = false
+      }, 100)}
+      
+      currentEnergy-= 15
+      countDown2(3, 10, cliquefy, 'X')
+      setTimeout(() => {
+        keyxcall = false;
+      }, 13000)
+      const offsessionw = evader.offsetWidth * 2
+      const offsessionh = evader.offsetHeight * 2
+      evader.style.width = offsessionw + "px"
+      evader.style.height = offsessionh + "px"
+      cliquefy.style.borderWidth = "2px"
+      cliquefy.style.backgroundColor = "blue"
+
+      finalclickdown = function () {};
+      setTimeout(() => {
+        cliquefy.style.backgroundColor = "green"
+        cliquefy.style.borderWidth = "0px"
+        finalclickdown = function () {finalclickdownr2()}
+        xthrow = false
+        evader.style.height = (offsessionh / 2) + "px"
+        evader.style.width = (offsessionw / 2) + "px"
+        gasR = false;
+        evader.style.backgroundColor = "dodgerblue"
+          
+      }, 3000)
+    }
+    }
+    document.body.addEventListener("keydown", (event) => {
+      if (event.key === "x" && points >= 5 && uFlux === "true") {
+        keyx()
+        spawnact()
+        
+        
+      }
+      if (event.key === "a" && powerup1cd) {
+
+        powerupCoal++;
+        if (powerupCoal === 1) {
+          powerup1.style.opacity = 0.1
+        } else if (powerupCoal === 2) {
+          countDown2(0, 10, document.getElementById("powerfreeze"), 'Freeze')
+          powerup1cd = false;
+          setTimeout(() => {
+            powerup1cd = true;
+          }, 10000)
+          powerup1.style.opacity = 0;
+          powerupCoa = true;
+          setTimeout(() => {
+            powerupCoa = false;
+          }, 5)
+          powerupCoal = 0;
+        }
+
+      }
+      if (event.key === "c" && points >= 10 && uIR === "true") {
         if (!spawned && currentEnergy >= 20) {
           countdown2()
           setTimeout(() => {
            cflare.style.backgroundColor = "green"
-           cflare.textContent = "X"
+           cflare.textContent = "C"
            cflare.classList.remove("cpulse2")
         }, 7000)
           const one = document.createElement("div")
@@ -677,6 +867,7 @@ let pointT = 0;
         }, 100)
       }
       if (event.key === "1" && !initOne && pointT >= 1) {
+        
         defualtspeed += 0.5
 
         pointT--;
@@ -686,6 +877,7 @@ let pointT = 0;
         }, 100)
       }
       if (event.key === "3" && !initThree && pointT >= 1) {
+        
         pointT--;
         increaseRate += Math.round(.2 * 10) / 10;
 
@@ -697,124 +889,8 @@ let pointT = 0;
     })
     let lD = document.getElementById('leveldetect');
     let token;
-    const laser1 = document.getElementById("laser2");
 
-    const laserball = document.getElementById("laserball");
-    function lazer() {
-      laserball.style.display = "block"
-
-      laser16.style.display = "block";
-
-      setTimeout(() => {
-        laser16.style.display = "none";
-        laser.style.display = "block";
-        laserball.style.transform = "rotate(36deg)";
-        laser.style.opacity = 0.4
-
-      }, 1125);
-      setTimeout(() => {
-
-        laserball.style.transform = "rotate(54deg)";
-        laser.style.opacity = 0.6
-
-      }, 1250);
-      setTimeout(() => {
-
-        laserball.style.transform = "rotate(72deg)";
-        laser.style.opacity = 0.8
-
-      }, 1375);
-      setTimeout(() => {
-        laser.style.display = "none";
-        laser16.style.display = "block";
-        laserball.style.transform = "rotate(90deg)";////
-
-      }, 1500);
-      setTimeout(() => {
-        laser16.style.display = "none";
-        laser.style.display = "block";
-        laserball.style.transform = "rotate(108deg)";
-        laser.style.opacity = 0.2
-
-      }, 2625);
-      setTimeout(() => {
-
-        laserball.style.transform = "rotate(126deg)";
-        laser.style.opacity = 0.4
-
-      }, 2750);
-      setTimeout(() => {
-
-        laserball.style.transform = "rotate(144deg)";
-        laser.style.opacity = 0.6
-
-      }, 2875);
-      setTimeout(() => {
-
-        laserball.style.transform = "rotate(162deg)";
-        laser.style.opacity = 0.8
-      }, 3000);
-      setTimeout(() => {
-        laser.style.display = "none";
-        laser16.style.display = "block";
-        laserball.style.transform = "rotate(180deg)";///
-      }, 3125);
-      setTimeout(() => {
-        laser16.style.display = "none";
-        laser.style.display = "block";
-        laserball.style.transform = "rotate(198deg)";
-        laser.style.opacity = 0.2
-      }, 4250);
-      setTimeout(() => {
-
-        laserball.style.transform = "rotate(216deg)";
-        laser.style.opacity = 0.4
-      }, 4375);
-      setTimeout(() => {
-        laser13.style.display = "none";
-        laser14.style.display = "block";
-        laserball.style.transform = "rotate(234deg)";
-        laser.style.opacity = 0.6
-      }, 4500);
-      setTimeout(() => {
-
-        laserball.style.transform = "rotate(252deg)";
-        laser.style.opacity = 0.8
-      }, 4625);
-      setTimeout(() => {
-        laser.style.display = "none";
-        laser16.style.display = "block";
-        laserball.style.transform = "rotate(270deg)";///
-      }, 4750);
-      setTimeout(() => {
-        laser16.style.display = "none";
-        laser.style.display = "block";
-        laserball.style.transform = "rotate(288deg)";
-        laser.style.opacity = 0.2
-      }, 5875);
-      setTimeout(() => {
-
-        laserball.style.transform = "rotate(306deg)";
-        laser.style.opacity = 0.4
-      }, 6000);
-      setTimeout(() => {
-
-        laserball.style.transform = "rotate(324deg)";
-        laser.style.opacity = 0.6
-      }, 6125);
-      setTimeout(() => {
-
-        laserball.style.transform = "rotate(342deg)";
-        laser.style.opacity = 0.8
-      }, 6250);
-      setTimeout(() => {
-        laser.style.display = "none";
-        laser16.style.display = "block";
-        laserball.style.transform = "rotate(360deg)"; ///
-        lazer()
-      }, 6370);
-
-    }
+ 
     const cflare = document.getElementById("timerflare")
     const speedsys = document.getElementById("speedsys")
     function countdown() {
@@ -865,7 +941,7 @@ function countdown2() {
     let token1;
     let rectG;
 
- const guns = []
+
 
  const flarnums = []; 
 const flarnumSize = 20; 
@@ -1087,8 +1163,11 @@ requestAnimationFrame(updateFlarnums);
 
         // (Optional) Call your spawnact function
         if (keys.ArrowUp || keys.ArrowDown || keys.ArrowLeft || keys.ArrowRight) {
-          spawnact();
+
+          flare(event)
         }
+        
+        
 
         speedsys.textContent = `1| Speed = ${speed}`;
 
@@ -1096,16 +1175,28 @@ requestAnimationFrame(updateFlarnums);
       }
       alleyoop();
     });
-
     function finalclickdown() {
-
+      finalclickdownr2()
+    }
+    function finalclickdownr2() {
+    if (xthrow) {
+      xonclick = true;
+      keyx()
+    } else {
+      finalclickdownr()
+    }
+    }
+      
+      
+    
+     function finalclickdownr() {
+      //localstorage.setItem("levels", )
       document.getElementById("timerflare").style.display = "none"
+      cliquefy.style.display = 'none'
       energy.style.display = "none"
       regen.style.display = "none"
       lD.style.display = "none"
       token.style.display = "none"
-
-      lazer = function () { };
 
       document.getElementById("affected").classList.remove('screenshake')
       document.body.addEventListener('keydown', () => {
@@ -1113,20 +1204,16 @@ requestAnimationFrame(updateFlarnums);
       });
 
       // Use querySelectorAll and forEach to properly hide all elements with the class
-      document.querySelectorAll(".flare").forEach(el => {
-        el.style.display = "none";
-      });
+
       document.querySelectorAll(".gunner").forEach(el => {
         el.style.display = "none";
       });
-      document.querySelectorAll(".laser").forEach(el => {
-        el.style.display = "none";
-      });
+
 
       evader.style.display = "none"
       timershrink.style.display = "none"
       speedsys.style.display = "none"
-      document.getElementById("laserball").style.display = "none"
+      
       document.body.style.backgroundColor = "#0A3D22";
       document.getElementById("runner").style.display = "none";
       document.getElementById("sys").style.display = "none";
@@ -1135,9 +1222,22 @@ requestAnimationFrame(updateFlarnums);
       document.getElementById("custom").style.display = "block";
 
       setTimeout(() => {
+        let noX = (points - 1) * 5
+        let nextrun = true;
+        localStorage.setItem("nextrun", nextrun)
+        localStorage.setItem("Coins", noX);
+        document.getElementById("no").textContent = ">>> coins for this session: " + noX;
         document.getElementById("no").style.display = "block";
       }, 500);
       setTimeout(() => {
+        let highScoreList = JSON.parse(localStorage.getItem("highest")) || [];
+        highScoreList.push(points)
+        const jsonhsl = JSON.stringify(highScoreList)
+        localStorage.setItem("highest", jsonhsl);
+        const hslStored = localStorage.getItem("highest");
+        highScoreList = JSON.parse(hslStored);
+        highScoreList.sort((a, b) => b - a);
+        document.getElementById("no1").textContent = ">>> high score: " + highScoreList[0]
         document.getElementById("no1").style.display = "block";
       }, 1000);
       setTimeout(() => {
@@ -1149,9 +1249,7 @@ requestAnimationFrame(updateFlarnums);
       setTimeout(() => {
         document.getElementById("no4").style.display = "block";
       }, 2500);
-      setTimeout(() => {
-        window.close();
-      }, 3000);
+
 
     }
     function moverBariable() {
@@ -1184,7 +1282,6 @@ requestAnimationFrame(updateFlarnums);
     }
     const sys = document.getElementById("sys");
     const body = document.body;
-
     let isOnCooldown = false;
     let mouseX = 0;
     let mouseY = 0;
@@ -1192,37 +1289,68 @@ requestAnimationFrame(updateFlarnums);
       mouseX = event.clientX;
       mouseY = event.clientY;
     });
-let invi = true;
-function moveGunner(gunner, angle, speed = 5) {
-  let dx = Math.cos(angle) * speed;
-  let dy = Math.sin(angle) * speed;
+
+function moveGunner(gunner, angle, speed1) {
+  
+  
+  let dx = Math.cos(angle) * speed1;
+  let dy = Math.sin(angle) * speed1;
+  
 
   function updatePosition() {
     const rectx = gunner.getBoundingClientRect();
+    if (xactivity) {
+     if (collision(rectx, rect)) {
+
+       dx = Math.cos(angle) * (speed1 * 1.5);
+       dy = Math.sin(angle) * (speed1 * 1.5);
+       gunner.style.backgroundColor = "#d8f005"
+       setTimeout(() => {
+         dx = Math.cos(angle) * speed1;
+         dy = Math.sin(angle) * speed1;
+         gunner.style.backgroundColor = "blue"
+         
+       }, 10000)
+     }
+    } else if (powerupCoa) {
+      if (collision(powerup1.getBoundingClientRect(), rectx)) {
+       
+        dx = Math.cos(angle) * (speed1 * 0);
+        dy = Math.sin(angle) * (speed1 * 0);
+        gunner.style.backgroundColor = "#5DCBDE"
+        setTimeout(() => {
+          dx = Math.cos(angle) * speed1;
+          dy = Math.sin(angle) * speed1;
+          gunner.style.backgroundColor = "blue"
+         
+        }, 3000)
+        
+      }
+    }
 
     let newX = rectx.left + dx;
     let newY = rectx.top + dy;
 
-    // Bounce on left/right
+    
     if (newX <= 0 || newX + rectx.width >= window.innerWidth) {
-      dx *= -1; // reverse X direction
+      dx *= -1; //dis allows to BOUNSE
       newX = Math.max(0, Math.min(newX, window.innerWidth - rectx.width));
     }
 
-    // Bounce on top/bottom
+   
     if (newY <= 0 || newY + rectx.height >= window.innerHeight) {
-      dy *= -1; // reverse Y direction
+      dy *= -1;
       newY = Math.max(0, Math.min(newY, window.innerHeight - rectx.height));
     }
 
     // Apply the new position
     gunner.style.left = `${newX}px`;
     gunner.style.top = `${newY}px`;
-    if (invi) {
+
      if (collision(rect, rectx)) {
        finalclickdown();
      } 
-    }
+    
 
 
     requestAnimationFrame(updatePosition);
@@ -1230,52 +1358,69 @@ function moveGunner(gunner, angle, speed = 5) {
 
   requestAnimationFrame(updatePosition);
 }
+
 function flare(event) {
   if (isOnCooldown) {
     return;
   }
-  invi = false;
+
   isOnCooldown = true;
   
-  const rotateInterval2 = Math.random() * (360 - (-360)) + (-360);
 
   const myFlare = document.createElement('button');
   myFlare.className = 'flare';
   myFlare.style.position = 'absolute';
   myFlare.style.left = rect.left + 'px';
   myFlare.style.top = rect.top + 'px';
+
+  const rotateInterval2 = Math.random() * (360 - (-360)) + (-360);
   myFlare.style.transform = "rotate(" + rotateInterval2 + "deg)";
 
-  
-const gunner = document.createElement("div");
-gunner.classList.add("gunner");
-document.body.appendChild(gunner);
-guns.push(gunner)
+  document.body.appendChild(myFlare);
 
-// start in center
-gunner.style.left = `${rect.left}px`;
-gunner.style.top = `${rect.top}px`;
+  // Store the flare's final position before it disappears
+  const flarePosition = {
+    left: myFlare.style.left,
+    top: myFlare.style.top
+  };
 
-// random facing direction (in radians)
-const randomAngle = Math.random() * Math.PI * 2;
+  // The timeout to hide the flare
+  setTimeout(() => {
 
-// start moving in that direction
-moveGunner(gunner, randomAngle, 7); // speed = 7
-setTimeout(() => {
-  invi = true
-}, 200)
-setTimeout(() => {
-  
-  myFlare.style.visibility = "hidden"
-}, 300);
+    myFlare.style.visibility = "hidden";
+
+    const gunner = document.createElement("div");
+    gunner.classList.add("gunner", "enemy");
+    guns.push(gunner);
+    document.body.appendChild(gunner);
 
 
+    gunner.style.left = flarePosition.left;
+    gunner.style.top = flarePosition.top;
 
 
-document.body.appendChild(myFlare);
-setTimeout(() => {
-  isOnCooldown = false;
-}, 1000);
+    const randomAngle = Math.random() * Math.PI * 2;
+    
+    if (points % 5 === 0 && checkiftrue) {
+      spawnact()
+      speedFactor += (1.5 - speedsub)//change for nerfs n stuff
+      
+      if (speedsub !== 1) {
+        speedsub += 0.1
+        
+      }
+      //checkiftrue = false;
+      if (points % 5 !== 0) {
+        checkiftrue = true;
+      }
+    }
+    moveGunner(gunner, randomAngle, speedFactor); 
+    
+  }, 300);
+
+  setTimeout(() => {
+    isOnCooldown = false;
+  }, 1000);
 }
 
 
@@ -1283,26 +1428,10 @@ setTimeout(() => {
       const newColor = hexes();
       body.style.backgroundColor = newColor;
       document.body.style.transition = "background-color 0.15s ease-in";
-      flare(event);
+      
       moverBariable();
     };
-    const lasers = [...document.querySelectorAll(".lasertrigger")]
 
-    function lasercollision() {
-      const rectervector = evader.getBoundingClientRect();
-      lasers.forEach(laser => {
-
-        if (laser.style.display !== "none") {
-          const rectL = laser.getBoundingClientRect();
-          if (collision(rectervector, rectL)) {
-            finalclickdown();
-
-          }
-        }
-      });
-      requestAnimationFrame(lasercollision);
-    }
-    requestAnimationFrame(lasercollision)
     let tokenspawnx;
     let tokenspawny;
     let tokenX = (window.innerWidth) - 40
@@ -1332,22 +1461,47 @@ setTimeout(() => {
       token.style.borderRadius = "100px"
       document.body.appendChild(token)
       function reloadtoken() {
+        let safeZone;
+        function tuffnucke() {
+        if (collision(safeZone.getBoundingClientRect(), rect)) {
+          finalclickdown = function () { };
+          
+
+        } else {
+          finalclickdown = function () {finalclickdownr2()};
+          safeZone.remove();
+        }
+        requestAnimationFrame(tuffnucke)
+        } requestAnimationFrame(tuffnucke)
         token1 = token.getBoundingClientRect();
-        if (rect.right > token1.left &&
-          rect.left < token1.right &&
-          rect.bottom > token1.top &&
-          rect.top < token1.bottom) {
+        if (collision(rect, token1)) {
           points++;
           pointT++;
-          if (!execution && points === 5) {
-            lazer()
-            document.getElementById("timerflare").style.display = "block"
+
+            safeZone = document.createElement("div")
+            safeZone.style.position = "absolute"
+            safeZone.style.top = token1.top + "px"
+            safeZone.style.left = token1.left + "px"
+            safeZone.style.borderRadius = "100%"
+            safeZone.style.height = "40px"
+            safeZone.style.width = "40px"
+            safeZone.style.backgroundColor = "black"
+            document.body.appendChild(safeZone)
+
+        
+          if (!execution && points === 5 && uFlux === "true") {
+            
+            document.getElementById("timerliquefy").style.display = 'block'
+            xthrow = true;
             execution = true;
           }
           if (points === 10) {
             unafk()
-
+            if (uIR === "true") {
+              document.getElementById("timerflare").style.display = "block"
+            }
           }
+
           requestAnimationFrame(getscreenrandom)
           token.style.left = tokenspawnx + "px"
           token.style.top = tokenspawny + "px"
@@ -1359,11 +1513,11 @@ setTimeout(() => {
       } requestAnimationFrame(reloadtoken)
     }
     tokenizer()
-    let homer;
+    
     function unafk() {
     
       homer = document.createElement("div")
-      homer.classList.add("flarhom")
+      homer.classList.add("flarhom", "enemy")
       document.body.appendChild(homer)
       function scannex() {
         homerx = homer.getBoundingClientRect();
@@ -1378,7 +1532,11 @@ setTimeout(() => {
     
     const flarhom = [];
     const flarhomSize = 20;
-    const flarhomSpeed = 4;
+    let flarhomSpeed = speed2;
+    let homerSensor = 1
+
+
+
 
     function updateHomer() {
       const targetLeftx = rect.left + (rect.width / 2) - (flarhomSize / 2);
@@ -1393,8 +1551,37 @@ setTimeout(() => {
         const dxx = targetLeftx - currentLeftx;
         const dyx = targetTopx - currentTopx;
         const dist = Math.hypot(dxx, dyx) || 1;
-        const stepXx = (dxx / dist) * flarhomSpeed;
-        const stepYy = (dyx / dist) * flarhomSpeed;
+        let stepXx;
+        let stepYy
+        if (xactivity && collision(rect, homer.getBoundingClientRect())) {
+          homerSensor = 2
+          setTimeout(() => {
+            homerSensor = 1;
+          }, 10000)
+        }
+        if (powerupCoa && collision(homer.getBoundingClientRect(), powerup1.getBoundingClientRect())) {
+          homerSensor = 3;
+
+          setTimeout(() => {
+            homerSensor = 1;
+          }, 3000)
+        }
+
+        if (homerSensor === 1) {
+          stepYy = (dyx / dist) * flarhomSpeed;
+          stepXx = (dxx / dist) * flarhomSpeed;
+          homer.style.backgroundColor = ""
+        } else if (homerSensor === 2) {
+          stepXx = (dxx / dist) * flarhomSpeed * 2;
+          stepYy = (dyx / dist) * flarhomSpeed * 2;
+          
+          homer.style.backgroundColor = "#d8f005"
+        } else if (homerSensor === 3) {
+          stepXx = (dxx / dist) * flarhomSpeed * 0;
+          stepYy = (dyx / dist) * flarhomSpeed * 0;
+          homer.style.backgroundColor = "#5DCBDE"
+        }
+        
         el.style.left = (currentLeftx + stepXx) + 'px';
         el.style.top = (currentTopx + stepYy) + 'px';
       }
@@ -1403,7 +1590,10 @@ setTimeout(() => {
     }
     requestAnimationFrame(updateHomer)
 
+
     
   }//nextINitializeBracket
   nextInitialize()
+
+
 </script>
