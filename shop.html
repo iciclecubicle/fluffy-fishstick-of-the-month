@@ -93,25 +93,39 @@
     height: 2.25em;
     border-radius: 5%;
   }
-  body {
+body {
     overflow: hidden;
-    background: linear-gradient(45deg, #c6bfdb, #beb4d9, #a79bc9, #9384bd, #7a68ab, #604d94, #45327a, #36226b, #2a1469, #2e1082, #1c156e, #21178f, #2e23a8, #4237b8, #5a51c4, #677cc7, #7e8fcc, #747fa6, #626a85, #515566, #3d404a, #3d4a4a, #293838, #1e3030, #142626, #142e2e, #184747, #184747, #184747);
-    background-size: 400% 100%; /* Make the background larger than the element to allow for movement */
-    animation: gradientMotion 30s ease infinite; /* Apply the animation */
-  }
+   
+    background-image:
+        
+        repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.1) 0, rgba(0, 0, 0, 0.1) 2px, transparent 2px, transparent 20px),
+        repeating-linear-gradient(-45deg, rgba(0, 0, 0, 0.1) 0, rgba(0, 0, 0, 0.1) 2px, transparent 2px, transparent 20px),
+        repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.1) 0, rgba(0, 0, 0, 0.1) 2px, transparent 2px, transparent 20px),
+        
+        linear-gradient(45deg, #3d404a, #3d4a4a, #293838, #1e3030, #142626, #142e2e, #184747, #184747, #184747);
+    
 
+    
+    background-repeat: repeat, repeat, repeat, no-repeat; 
 
-  @keyframes gradientMotion {
+    animation: gMotion 30s ease infinite;
+    height: 100vh; 
+    margin: 0; 
+}
+
+@keyframes gMotion {
     0% {
-      background-position: 0% 50%; 
+        background-position: 0% 0%, 0% 0%, 0% 0%, 0% 0%; /* Adjust background positions for animation if desired */
     }
     50% {
-      background-position: 100% 50%; 
+        background-position: 100% 100%, 100% 0%, 0% 100%, 0% 0%;
     }
     100% {
-      background-position: 0% 50%; 
+        background-position: 0% 0%, 0% 0%, 0% 0%, 0% 0%;
     }
-  }
+}
+
+
   @keyframes cpulse {
     0% {
       box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
@@ -172,6 +186,7 @@
 
 <script>
 //Main aspe
+document.body.style.backgroundSize = "20px 20px, 20px 20px, 20px 20px, 100% 100%"
 document.addEventListener("keydown", (event) => {
   if (event.key === "`" && ct > 0) {
     ct -= 1;
@@ -255,9 +270,9 @@ eventListeners()
 
 
 unlock1.addEventListener("click", () => {
-  if (ct >= 300) {
+  if (ct >= 30) {
     localStorage.setItem("unlockAbility1", true)
-    ct -= 300
+    ct -= 30
     
   } else {
     fallbackStatementL(localStorage.getItem("unlockAbility1"), ulevel1)
@@ -265,9 +280,9 @@ unlock1.addEventListener("click", () => {
 })
 
 unlock2.addEventListener("click", () => {
-  if (ct >= 650) {
+  if (ct >= 65) {
     localStorage.setItem("unlockAbility2", true)
-    ct -= 650
+    ct -= 65
   } else {
     fallbackStatementL(localStorage.getItem("unlockAbility2"), ulevel2)
   }
