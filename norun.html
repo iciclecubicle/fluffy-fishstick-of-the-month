@@ -1,6 +1,4 @@
-
 <div id="idkme">
-
 <hr id="rotate1" class="1">
 <hr id="rotate2" class="1">
 <hr id="rotate3" class="1">
@@ -85,7 +83,6 @@
 <hr id="trotate2" class="21">
 <hr id="trotate3" class="21">
 <hr id="trotate4" class="21">
-
 <hr id="trotate5" class="21">
 <hr id="trotate6" class="21">
 <hr id="brotate1" class="31">
@@ -103,13 +100,13 @@
 </div>
 <style>
 .41 {
-  width: 3px;
+  width: 1px;
 }
 .21 {
-  width: 2px;
+  width: 1px;
 }
 .31 {
-  width: 3.5px;
+  width: 1px;
 }
 .1 {
   width: 1px;
@@ -117,9 +114,21 @@
 @keyframes spin {
   0% {
     transform: rotate(0deg);
+    background-color: green;
   }
   100% {
     transform: rotate(360deg);
+    background-color: green;
+  }
+}
+@keyframes spin2 {
+  0% {
+    transform: rotate(0deg);
+
+  }
+  100% {
+    transform: rotate(360deg);
+
   }
 }
 
@@ -196,9 +205,9 @@
   animation: spin .05s linear infinite;
 }
 body {
-  animation: spin 10s linear infinite;
+  animation: spin2 .001s linear infinite;
+  background-color: black;
   overflow: hidden;
-  background-image: url(https://uploads.onecompiler.io/43y4m9qt2/43y7938g5/cheeese.png);
 }
 </style>
 <script>
