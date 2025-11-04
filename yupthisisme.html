@@ -1,56 +1,45 @@
-
-<div id="arial" class="unog23 tw">
-<h1>creds:    iciclecubicle</h1>
+<head>
+    <meta charset="UTF-8">
+    <div id="arial" class="unog23 tw">
+<h1>by: iciclecubicle</h1>
 </div>
 <div id="arial1" class="unog1 tw">
 <h1></h1>
 </div>
-<div id="arial2" class="unog2 tw">
+<div id="arial" class="unog2 tw">
 <h1></h1>
 </div>
 <div id="arial3" class="unog3 tw">
-<h1></h1>
-</div>
+<h1 style="font-family: Arial; font-size: 1.90em;">Made with ❤</h1>
 
-<div class="nest-container">
-  <div class="hr-group blue">
-    <hr class="1">
-    <hr class="1">
-    <hr class="1">
-    <hr class="1">
-    <hr class="1">
-    <hr class="1">
-  </div>
-  <div class="hr-group red">
-    <hr class="2">
-    <hr class="2">
-    <hr class="2">
-    <hr class="2">
-    <hr class="2">
-    <hr class="2">
-  </div>
-  <div class="hr-group yellow">
-    <hr class="3">
-    <hr class="3">
-    <hr class="3">
-    <hr class="3">
-    <hr class="3">
-    <hr class="3">
-  </div>
-  <div class="hr-group green">
-    <hr class="4">
-    <hr class="4">
-    <hr class="4">
-    <hr class="4">
-    <hr class="4">
-    <hr class="4">
-  </div>
-</div>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+</head>
+<body>
+    <canvas id="lightningCanvas"></canvas>
+    <script src="lightning.js"></script>
+</body>
+
 <style>
 
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #404B7D;
+            cursor: none; /* Hide default cursor */
+        }
+        canvas {
+            display: block;
+            background-color: transparent;
+            position: absolute;
+            left: 0%;
+            top: 0%;
+        }
   /* Basic styling for the body and container */
 body {
-  background-color: #1a1a1a;
+  background-color: #404B7D;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -145,7 +134,7 @@ body {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: conic-gradient(from 180deg, transparent 0%, #ff00ff 10%, #00ffff 30%, transparent 50%);
+  background: conic-gradient(from 180deg, transparent 0%, #191C36 10%, #00ffff 30%, transparent 50%);
   filter: blur(75px) opacity(0.8); 
   z-index: -2;
 }
@@ -207,10 +196,24 @@ h1::after {
 }
 
 body {
-  background-color: #183A7A;
+  background-color: #404B7D;
   
 }
-
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #091F33;
+            
+            cursor: none;
+        }
+        svg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Allows mouse events to pass through */
+        }
 </style>
 <script>
 // Define the overlap detection function
@@ -257,5 +260,78 @@ function checkAllOverlaps() {
 // Run the check continuously
 setInterval(checkAllOverlaps, 1000 / 60);
 
+
+const canvas = document.getElementById('lightningCanvas');
+const ctx = canvas.getContext('2d');
+
+let lastX = 0;
+let lastY = 0;
+let mouseX = 0;
+let mouseY = 0;
+let points = [];
+const trailLength = 50; // Number of segments in the trail
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+window.addEventListener('resize', resizeCanvas);
+document.addEventListener('mousemove', (event) => {
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+});
+
+// Create the animation loop
+function animate() {
+    // Add current mouse position to our points array
+    points.push({ x: mouseX, y: mouseY });
+    
+    // Keep the trail at a fixed length
+    if (points.length > trailLength) {
+        points.shift();
+    }
+
+    // Clear the canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // If there are at least two points, draw the lightning trail
+    if (points.length > 1) {
+        ctx.beginPath();
+        
+        // Move to the first point
+        ctx.moveTo(points[0].x, points[0].y);
+
+        for (let i = 1; i < points.length; i++) {
+            // Get the current and previous points
+            const prevPoint = points[i - 1];
+            const currentPoint = points[i];
+            
+            // Add some randomness (jitter) for the spiky effect
+            const jitterX = (Math.random() - 0.5) * 50;
+            const jitterY = (Math.random() - 0.5) * 50;
+            
+            // Calculate a control point for a curved, organic path
+            const cx = (prevPoint.x + currentPoint.x) / 2 + jitterX;
+            const cy = (prevPoint.y + currentPoint.y) / 2 + jitterY;
+
+            ctx.quadraticCurveTo(cx, cy, currentPoint.x, currentPoint.y);
+        }
+        
+        // Style the lightning bolt
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = 'cyan';
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = 'cyan';
+        ctx.stroke();
+    }
+
+    // Call animate again on the next frame
+    requestAnimationFrame(animate);
+}
+
+// Initialize canvas size and start the animation
+resizeCanvas();
+animate();
 
 </script>
