@@ -1,27 +1,60 @@
+<div id="abilityReplacement">
+  <button>Skip</button>
+</div>
 <div id="topcollapser"><p id="coins" title="the currency! press backtick to -1 coin">hi</p><div style="padding: 10px;"><a href="game.html"><button style="right: 5px;" id="skip" onclick='localStorage.setItem("Coinss", ct.toString());'>Continue</button></a></div></div>
-
+<div id="description">Turns yourself into an unstabl state making youreself edwpodkw opdkw poidk</div>
 <div id=upgrades>
  <h1>Shop</h1>
  <p>Hover over elements to learn their function</p>
- <div class="upgradeMed itemHover" id="unlock1">
-   <h2>Flux</h2>
-   <p id="descFlux">Unlock ability -- max level ability unlock = Level 5</p>
+
+
+ <div class="upgradeLow itemHover" id="unlock1">
+   <h2>■ Flux</h2>
+   <p id="descFlux">Unlock ability</p>
    <p id="ulevel1">Level 0/1</p>
    <br>
    <p id="costFlux">Cost: 300 coins</p>
 
  </div>
  <br>
-  <div class="upgradeMed itemHover" id="unlock2">
-   <h2>Icicle rockets</h2>
-   <p id="descIR">Unlock ability -- max level ability unlock = Level 10</p>
+  <div class="upgradeLow itemHover" id="unlock2">
+   <h2>□ Icicle rockets</h2>
+   <p id="descIR">Unlock powerup (Replace Current powerup)</p>
    <p id="ulevel2">Level 0/1</p>
    <br>
    <p id="costIR">Cost: 650 coins</p>
  </div>
+ <br>
+  <div class="upgradeMed itemHover" id="unlock3">
+   <h2>■ Stomp</h2>
+   <p id="descTor">Unlock ability</p>
+   
+   <p id="ulevel3">Level 0/1</p>
+
+   <br>
+   <p id="costTor">Cost: 1500 coins</p>
+ </div>
 </div>
 <style>
+#description {
+  display: none;
+  opacity: .7;
+  position: absolute;
+  bottom: 5;
+  right: 5;
+  border-radius: 10%;
+  background-color: black;
+  padding: 15px;
+  color: white;
+  font-size: 15px;
+  font-family: arial;
+  max-width: 20vw;
+  text-align: center;
+}
 #unlock2 {
+  display: block;
+}
+#unlock3 { 
   display: none;
 }
 .itemHover {
@@ -58,8 +91,10 @@
     background-color: #a1c2b8;
     padding: 40px;
     border-radius: 20%;
-    max-height: 100vw;
+    max-height: 80%;
     overflow-y: auto;
+    max-width: 60%;
+
 }
 
 
@@ -182,9 +217,48 @@ body {
     backface-visibility: hidden;
     perspective: 0px;
   }
+  #desctor {
+    white-space: pre-wrap;
+  }
 </style>
 
 <script>
+const description = document.getElementById("description")
+const items = document.querySelectorAll(".itemHover")
+items.forEach(x => {
+  x.addEventListener("mouseout", () => {
+    description.textContent = " "
+    description.style.display = 'none'
+  })
+  x.addEventListener("mouseover", () => {
+    description.style.display = "block"
+  })
+})
+
+document.getElementById("unlock1").addEventListener("mouseover", () => {
+  description.style.display = "block"
+  description.textContent = `Turn yourself into a state
+  of liquid matter making yourself 
+  invincible for 3 seconds but becoming
+  2x bigger and every enemy you hit 
+  becomes 1.5x faster for 10s
+  (Also activates on contact of an enemy)
+  Cooldown = 10 seconds
+  Costs 15 energy`
+})
+document.getElementById("unlock2").addEventListener("mouseover", () => {
+  description.style.display = "block"
+  description.textContent = `  Spawns 4 high-speed missiles
+  that target the nearest vulnerable
+  enemy but explodes in .5 seconds 
+  Cooldown = 10 seconds`
+
+})
+document.getElementById("unlock3").addEventListener("mouseover", () => {
+  description.style.display = "block"
+  description.textContent = `Home to the nearest enemy and kill the enemy on contact for 5 seconds and gain .5 seconds of invincibility
+  `
+})
 //Main aspe
 document.body.style.backgroundSize = "20px 20px, 20px 20px, 20px 20px, 100% 100%"
 document.addEventListener("keydown", (event) => {
@@ -201,8 +275,10 @@ let ct = parseInt(coinsTotalString, 10);
 
 const coinsStorageString = localStorage.getItem("Coins") ?? '0';
 const coinsToAdd = parseInt(coinsStorageString, 10);
-
-ct += coinsToAdd;
+if (localStorage.getItem("run") === "false" || localStorage.getItem("run") === null) {
+ ct += coinsToAdd + 15000;///CLEAR AFTER DEBUGGING CLEEEEEEEEEEEEEEEEEEEAAAR
+ localStorage.setItem("run", true)
+}
 
 
 const coinsElement = document.getElementById("coins");
@@ -211,7 +287,10 @@ if (coinsElement) {
 }
 function update() {
   coinsElement.textContent = "Coins: " + ct;
-}
+  localStorage.setItem("Coinss", ct.toString());
+  
+} 
+
 //End main aspects
 
 //Shop items
@@ -236,29 +315,50 @@ function fallbackStatementL(ability, element) {
 
   }
 }
+function fallbackStatementM(num, max, element) {
+  if (max <= num) {
+    maxLevel(element)
+  } else {
+    notEnoughCoins()
+  }
+}
 
 
 const unlock1 = document.getElementById("unlock1")
 const unlock2 = document.getElementById("unlock2")
+const unlock3 = document.getElementById('unlock3')
 
 
 
 function eventListeners() {
+  
   if (localStorage.getItem("unlockAbility1") === 'true') {
     document.getElementById("costFlux").style.display = "none"
-    document.getElementById("descFlux").textContent = "Max level ability unlock = Level 5";
+    document.getElementById("descFlux").style.display = "none"
     document.getElementById("ulevel1").textContent = "Level 1/1"
     localStorage.setItem("?Flux", true)
     unlock2.style.display = "block"
+    unlock3.style.display = "block"
     update()
+    
   }
   if (localStorage.getItem("unlockAbility2") === "true") {
+    //unlock3.display = "none"
     document.getElementById("costIR").style.display = "none"
-    document.getElementById("descIR").textContent = "Max level ability unlock = Level 10"
+    document.getElementById("descIR").textContent = ""
     document.getElementById("ulevel2").textContent = "Level 1/1"
     localStorage.setItem("?IR", true)
     update()
   }
+  if (localStorage.getItem("unlockAbility3") === "true") {
+    //unlock2.style.display = "none"
+    document.getElementById("costTor").style.display = "none"
+    document.getElementById("ulevel3").textContent = "Level 1/1"
+    document.getElementById('descTor').style.display = "none"
+    localStorage.setItem("?Stomp", true)
+    update()
+  }
+
   requestAnimationFrame(eventListeners)
 }
 eventListeners()
@@ -270,26 +370,31 @@ eventListeners()
 
 
 unlock1.addEventListener("click", () => {
-  if (ct >= 30) {
+  if (ct >= 300 && localStorage.getItem("unlockAbility1") === null) {
     localStorage.setItem("unlockAbility1", true)
-    ct -= 30
-    
+    ct -= 300
   } else {
-    fallbackStatementL(localStorage.getItem("unlockAbility1"), ulevel1)
+    fallbackStatementL(localStorage.getItem("unlockAbility1"), document.getElementById("ulevel1"))
   }
 })
 
 unlock2.addEventListener("click", () => {
-  if (ct >= 65) {
+  if (ct >= 650 && localStorage.getItem("unlockAbility2") === null) {
     localStorage.setItem("unlockAbility2", true)
-    ct -= 65
+    ct -= 650
   } else {
-    fallbackStatementL(localStorage.getItem("unlockAbility2"), ulevel2)
+    fallbackStatementL(localStorage.getItem("unlockAbility2"), document.getElementById("ulevel2"))
   }
 })
 
-
-
+unlock3.addEventListener("click", () => {
+  if (ct >= 1500 && localStorage.getItem("unlockAbility3") === null) {
+    localStorage.setItem("unlockAbility3", true)
+    ct -= 1500
+  } else {
+    fallbackStatementL(localStorage.getItem("unlockAbility3"), document.getElementById("ulevel3"))
+  }
+});
 
 
 
