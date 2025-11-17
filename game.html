@@ -1,8 +1,9 @@
 <body>
 <pre>
 <div id="timercontent" style="display: none"></div>
-<div class="timershrink" id="timerliquefy">X</div>
-<div class="timershrink" id="timerflare">C</div>
+<div class="timershrink2" id="timerliquefy">Flux</div>
+
+<div class="timershrink" id="timerstomp">X</div>
 <div class="timershrink" id="timershrink">Z</div>
 <div class="timershrink powershrink" id="powerfreeze">Freeze</div>
 
@@ -13,9 +14,13 @@
 <p id="exp" class="exp">Points: 0</p>
 
 </pre>
+
 <div id="evader">
+  <div id="whpreview"></div>
   <div id="powerup1"></div>
+  <div id="attractor"></div>
 </div>
+
 
   
   <div id="affected">
@@ -48,6 +53,17 @@
 
 </div>
 <style>
+#timerstomp {
+  display: none;
+  left: 2.25em;
+}
+#attractor {
+  position: absolute;
+  opacity: 0;
+  padding: 225;
+  border-radius: 100%;
+  background-color: black;
+}
 #powerup1 {
   opacity: 0;
   padding: 350px;
@@ -55,6 +71,16 @@
   background-color: blue;
 
 }
+#whpreview {
+  position: absolute;
+  
+  opacity: 0;
+  padding: 200px;
+  border-radius: 100%;
+  background-color: blue;
+
+}
+
 #timercontent {
   position: absolute;
   background-color: black;
@@ -69,8 +95,16 @@
   
 }
 #timerliquefy {
+  position: absolute;
   display: none;
-  left: 2.25em;
+  background-color: cyan;
+
+  
+  right: 5px;
+  bottom: 5px;
+
+
+
 }
 .flarhom {
   position: absolute;
@@ -140,6 +174,9 @@
   }
 .cpulse2 {
   animation: cpulse 1s ease-in-out 10;
+}
+.cpulse3 {
+  animation: cpulse 0.4s ease-in-out 1;
 }
   @keyframes sheepulse {
     0% {
@@ -265,15 +302,27 @@
 
     /*  animation: timeout 1s linear 5;*/
   }
+  .timershrink2 {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    padding: 5px;
+
+    background-color: cyan;
+    position: absolute;
+    border-color: black;
+    border-radius: 25%;
+    border-style: solid;
+    border-width: 0px;
+    font-family: Arial;
+  }
 
   #timershrink {
     left: .50em;
   }
 
-  #timerflare {
-    display: none;
-    left: 4em;
-  }
 
   #evader {
     width: 45px;
@@ -550,7 +599,8 @@
 <script>
   
 const textdepth = document.getElementById("timercontent")
-const textdeput = document.querySelectorAll(".timershrink")
+const textdeput = document.querySelectorAll(".timershrink, .timershrink2")
+
 textdeput.forEach(x => {
   x.addEventListener("mouseout", () => {
     textdepth.textContent = " "
@@ -560,38 +610,47 @@ textdeput.forEach(x => {
     textdepth.style.display = "block"
   })
 })
+document.getElementById("timerstomp").addEventListener("mouseover", () => {
+  textdepth.textContent = `Stomp
+  
+  Home to the nearest enemy
+  and kill the enemy for 5s
+  all while gaining .5s of 
+  invincibility
+  Cooldown = 4 seconds
+  Costs 5 energy`
+})
 document.getElementById("timerliquefy").addEventListener("mouseover", () => {
-
+  
   textdepth.textContent = `Flux
   
-  Turn yourself into an unstable state
+  Turn yourself into a state
   of liquid matter making yourself 
   invincible for 3 seconds but becoming
   2x bigger and every enemy you hit 
-  becomes charged(1.5x faster) for 10s
+  becomes 1.5x faster for 10s
   (Also activates on contact of an enemy)
   Cooldown = 10 seconds
   Costs 15 energy`
 })
 document.getElementById("powerfreeze").addEventListener("mouseover", () => {
-
+  if (document.getElementById("powerfreeze").textContent === "Freeze") {
   textdepth.textContent = `Freeze
   
   Make mobile balls stop
   moving for 3 seconds
   within a 550px radius
   Cooldown = 10s`
-})
-document.getElementById("timerflare").addEventListener("mouseover", () => {
-
-  textdepth.textContent = `Icicle rockets
-  
-  Spawns 4 high-speed missiles
+  } else if (document.getElementById("powerfreeze").textContent = "Icicle Rockets") {
+    textdepth.textContent = `Icicle Rockets
+    
+    Spawns 4 high-speed missiles
   that target the nearest vulnerable
   enemy but explodes in .5 seconds 
-  Cooldown = 7 seconds
-  Costs 20 energy`
-});
+  Cooldown = 10s`
+  }
+})
+
 document.getElementById('timershrink').addEventListener('mouseover', () => {
   textdepth.textContent = `Breathing in
   
@@ -649,12 +708,16 @@ requestAnimationFrame(leveldetere)
     let powerup1cd = true;
     const uFlux = localStorage.getItem("?Flux");
     const uIR = localStorage.getItem("?IR")
+    let abilStomp = false;
+    let gunhyp;
+    let uirExecution = true;
+    let stompCd = true
+
     
     
 
 
 
-    
     function reload() {
       exp.textContent = `Points: ${pointT}`
       rect = evader.getBoundingClientRect();
@@ -671,6 +734,57 @@ requestAnimationFrame(leveldetere)
       requestAnimationFrame(reco)
     }
     reco()
+    function uIRinit() {
+                const one = document.createElement("div")
+          const two = document.createElement("div")
+          const three = document.createElement("div")
+          const four = document.createElement("div")
+
+          one.classList.add("flarnum")
+          two.classList.add("flarnum")
+          three.classList.add("flarnum")
+          four.classList.add("flarnum")
+
+          document.body.appendChild(one)
+          document.body.appendChild(two)
+          document.body.appendChild(three)
+          document.body.appendChild(four)
+
+          const centerX = rect.left + (rect.width / 2) - 10;
+          const centerY = rect.top + (rect.height / 2) - 10;
+          const spawnDistance = 50;
+
+          one.style.left = `${centerX - spawnDistance}px`;
+          one.style.top = `${centerY}px`;
+
+          two.style.left = `${centerX + spawnDistance}px`;
+          two.style.top = `${centerY}px`;
+
+          three.style.left = `${centerX}px`;
+          three.style.top = `${centerY - spawnDistance}px`;
+
+          four.style.left = `${centerX}px`;
+          four.style.top = `${centerY + spawnDistance}px`;
+          currentEnergy -= 20;
+          spawned = true;
+          setTimeout(() => {
+            spawned = false;
+          }, 7000)
+
+          flarnums.push(one, two, three, four);
+          setTimeout(() => {
+            one.classList.remove("flarnum")
+            two.classList.remove("flarnum")
+            three.classList.remove("flarnum")
+            four.classList.remove("flarnum")
+            document.body.removeChild(one)
+            document.body.removeChild(two)
+            document.body.removeChild(three)
+            document.body.removeChild(four)
+          }, 500)
+    }
+
+    
 
     function regenfunct() {
 
@@ -722,7 +836,11 @@ function countDown2(enabled, cooldown, indicator, letter) {
     } else {
 
       indicator.classList.remove("cpulse2");
-      indicator.style.backgroundColor = "green";
+      if (indicator === document.getElementById("timerliquefy")) {
+      indicator.style.backgroundColor = "cyan";
+      } else {
+        indicator.style.backgroundColor = "green"
+      }
       indicator.textContent = letter;
     }
   }
@@ -732,7 +850,7 @@ function countDown2(enabled, cooldown, indicator, letter) {
     const cshrink = document.getElementById("timershrink");
 
     let keyxcall = false;
-    function keyx() {
+       function keyx() {
       if (!keyxcall && currentEnergy >= 15) {
         xactivity = true;
         setTimeout(() => {
@@ -748,7 +866,7 @@ function countDown2(enabled, cooldown, indicator, letter) {
       }, 100)}
       
       currentEnergy-= 15
-      countDown2(3, 10, cliquefy, 'X')
+      countDown2(3, 10, cliquefy, 'Flux')
       setTimeout(() => {
         keyxcall = false;
       }, 13000)
@@ -761,7 +879,7 @@ function countDown2(enabled, cooldown, indicator, letter) {
 
       finalclickdown = function () {};
       setTimeout(() => {
-        cliquefy.style.backgroundColor = "green"
+        cliquefy.style.backgroundColor = "cyan"
         cliquefy.style.borderWidth = "0px"
         finalclickdown = function () {finalclickdownr2()}
         xthrow = false
@@ -774,15 +892,22 @@ function countDown2(enabled, cooldown, indicator, letter) {
     }
     }
     document.body.addEventListener("keydown", (event) => {
-      if (event.key === "x" && points >= 5 && uFlux === "true") {
-        keyx()
-        spawnact()
-        
-        
+
+      if (event.key === "x" && stompCd && currentEnergy >= 5 && localStorage.getItem("?Stomp") === "true") {
+        stomp()
+        countDown2(0, 5, document.getElementById("timerstomp"), "X")
+        currentEnergy -= 5;
+        stompCd = false
+        setTimeout(() => {
+          stompCd = true;
+        }, 5000)
       }
-      if (event.key === "a" && powerup1cd) {
+      
+      
+      if (event.key === "a" && powerup1cd && uIR === null) {
 
         powerupCoal++;
+        
         if (powerupCoal === 1) {
           powerup1.style.opacity = 0.1
         } else if (powerupCoal === 2) {
@@ -799,64 +924,15 @@ function countDown2(enabled, cooldown, indicator, letter) {
           powerupCoal = 0;
         }
 
+      } else if (event.key === "a" && uIR === "true" && powerup1cd) {
+        uIRinit()
+        powerup1cd = false;
+        setTimeout(() => {
+          powerup1cd = true;
+        }, 10000)
+        countDown2(0, 10, document.getElementById("powerfreeze"), 'Icicle Rockets')
       }
-      if (event.key === "c" && points >= 10 && uIR === "true") {
-        if (!spawned && currentEnergy >= 20) {
-          countdown2()
-          setTimeout(() => {
-           cflare.style.backgroundColor = "green"
-           cflare.textContent = "C"
-           cflare.classList.remove("cpulse2")
-        }, 7000)
-          const one = document.createElement("div")
-          const two = document.createElement("div")
-          const three = document.createElement("div")
-          const four = document.createElement("div")
 
-          one.classList.add("flarnum")
-          two.classList.add("flarnum")
-          three.classList.add("flarnum")
-          four.classList.add("flarnum")
-
-          document.body.appendChild(one)
-          document.body.appendChild(two)
-          document.body.appendChild(three)
-          document.body.appendChild(four)
-
-          const centerX = rect.left + (rect.width / 2) - 10;
-          const centerY = rect.top + (rect.height / 2) - 10;
-          const spawnDistance = 50;
-
-          one.style.left = `${centerX - spawnDistance}px`;
-          one.style.top = `${centerY}px`;
-
-          two.style.left = `${centerX + spawnDistance}px`;
-          two.style.top = `${centerY}px`;
-
-          three.style.left = `${centerX}px`;
-          three.style.top = `${centerY - spawnDistance}px`;
-
-          four.style.left = `${centerX}px`;
-          four.style.top = `${centerY + spawnDistance}px`;
-          currentEnergy -= 20;
-          spawned = true;
-          setTimeout(() => {
-            spawned = false;
-          }, 7000)
-
-          flarnums.push(one, two, three, four);
-          setTimeout(() => {
-            one.classList.remove("flarnum")
-            two.classList.remove("flarnum")
-            three.classList.remove("flarnum")
-            four.classList.remove("flarnum")
-            document.body.removeChild(one)
-            document.body.removeChild(two)
-            document.body.removeChild(three)
-            document.body.removeChild(four)
-          }, 500)
-        }
-      }
 
       if (event.key === "2" && !initTwo && pointT >= 1) {
         maximumE = maximumE + 5;
@@ -891,7 +967,7 @@ function countDown2(enabled, cooldown, indicator, letter) {
     let token;
 
  
-    const cflare = document.getElementById("timerflare")
+
     const speedsys = document.getElementById("speedsys")
     function countdown() {
       cshrink.textContent = "5"
@@ -923,17 +999,7 @@ function countDown2(enabled, cooldown, indicator, letter) {
         cshrink.textContent = "1"
       }, 9000);
     }
-function countdown2() {
 
-  for (let i = 7; i >= 0; i--) {
-    cflare.style.backgroundColor = "blue"
-    setTimeout(() => {
-      cflare.classList.add("cpulse2")
-      cflare.textContent = i;
-
-    }, 1000 * (7 - i));
-  }
-}
 
     const evader = document.getElementById('evader');
     let outter = false;
@@ -946,6 +1012,98 @@ function countdown2() {
  const flarnums = []; 
 const flarnumSize = 20; 
 const flarnumSpeed = 20; 
+function updateNearestGun() {
+  gunhyp = [];
+  guns.forEach((em) => {
+    const emrect = em.getBoundingClientRect();
+    const distance = Math.hypot(
+      (emrect.left + emrect.width / 2) - (rect.left + rect.width / 2),
+      (emrect.top + emrect.height / 2) - (rect.top + rect.height / 2)
+      );
+    gunhyp.push({ em, distance});
+  });
+  gunhyp.sort((a, b) => a.distance - b.distance);
+}
+function stomp() {
+  
+
+    updateNearestGun()
+
+    let cg2 = gunhyp[0].em
+    let closestgun = (gunhyp[0].em).getBoundingClientRect();
+    const targetLeft = closestgun.left + (closestgun.width / 2) - (rect.width / 2);
+    const targetTop = closestgun.top + (closestgun.height / 2) - (rect.height / 2);
+
+
+    const currentLeft = parseFloat(evader.style.left) || rect.left;
+    const currentTop = parseFloat(evader.style.top) || rect.top;
+
+    const dx = targetLeft - currentLeft;
+    const dy = targetTop - currentTop;
+    const dist = Math.hypot(dx, dy) || 1;
+    const stepX = (dx / dist) * 20;
+    const stepY = (dy / dist) * 20;
+
+    evader.style.left = (currentLeft + stepX) + 'px';
+    evader.style.top = (currentTop + stepY) + 'px';
+
+
+  if (!collision(rect, closestgun)) {
+    requestAnimationFrame(stomp)
+    evader.style.backgroundColor = "#4799a1"
+    finalclickdown = function () { };
+    abilStomp = true
+  } else {
+    evader.style.backgroundColor = "#122526"
+    cg2.style.opacity = ".25"
+    setTimeout(() => {
+      cg2.style.opacity = "1"
+    }, 5000)
+    evader.classList.add("cpulse3")
+    setTimeout(() => {
+      evader.classList.remove("cpulse3")
+      finalclickdown = function () {finalclickdownr2()};
+      evader.style.backgroundColor = "dodgerblue"
+      abilStomp = false;
+    }, 500)
+  }
+} 
+
+
+
+
+
+function level30() {
+  
+  if (points >= 30) {//ENABLE IT BY SETTING 300 TO 30
+
+
+    updateNearestGun()
+    
+    
+    let closestgun = (gunhyp[0].em).getBoundingClientRect();
+    const targetLeft = closestgun.left + (closestgun.width / 2) - (rect.width / 2);
+    const targetTop = closestgun.top + (closestgun.height / 2) - (rect.height / 2);
+
+
+    const currentLeft = parseFloat(evader.style.left) || rect.left;
+    const currentTop = parseFloat(evader.style.top) || rect.top;
+
+    const dx = targetLeft - currentLeft;
+    const dy = targetTop - currentTop;
+    const dist = Math.hypot(dx, dy) || 1;
+    const stepX = (dx / dist) * 2;
+    const stepY = (dy / dist) * 2;
+    if (collision(closestgun, document.getElementById("attractor").getBoundingClientRect())) {
+      evader.style.left = (currentLeft + stepX) + 'px';
+      evader.style.top = (currentTop + stepY) + 'px';
+    }
+
+  } 
+
+  requestAnimationFrame(level30)
+}
+requestAnimationFrame(level30)
 
 function updateFlarnums() {
   for (let i = 0; i < flarnums.length; i++) {
@@ -953,7 +1111,7 @@ function updateFlarnums() {
     const currentLeft = parseFloat(el.style.left) || el.getBoundingClientRect().left;
     const currentTop = parseFloat(el.style.top) || el.getBoundingClientRect().top;
 
-    const gunhyp = [];
+    gunhyp = [];
     guns.forEach((em) => {
       const emrect = em.getBoundingClientRect();
       const distance = Math.hypot(
@@ -961,6 +1119,7 @@ function updateFlarnums() {
         (emrect.top + emrect.height / 2 - flarnumSize / 2) - currentTop
       );
       gunhyp.push({ em, distance });
+
       document.querySelectorAll(".flarnum").forEach(florrr => {
         const florer = florrr.getBoundingClientRect();
         if (collision(emrect, florer)) {
@@ -1037,6 +1196,7 @@ function updateFlarnums() {
     el.style.top = (currentTop + stepY) + 'px';
     
   }
+  
   requestAnimationFrame(updateFlarnums);
 }
 requestAnimationFrame(updateFlarnums);
@@ -1176,27 +1336,36 @@ requestAnimationFrame(updateFlarnums);
       alleyoop();
     });
     function finalclickdown() {
-      finalclickdownr2()
+      //setTimeout(() => {
+       finalclickdownr2() 
+      //}, 1000)
+      
     }
     function finalclickdownr2() {
-    if (xthrow) {
-      xonclick = true;
-      keyx()
-    } else {
-      finalclickdownr()
-    }
-    }
+      if (!abilStomp) {
+      if (xthrow) {
+        xonclick = true;
+        keyx()
+      } else {
+         finalclickdownr()
+      }
+      }
+    } 
       
       
     
      function finalclickdownr() {
       //localstorage.setItem("levels", )
-      document.getElementById("timerflare").style.display = "none"
+      localStorage.setItem("run", false)
+      
       cliquefy.style.display = 'none'
       energy.style.display = "none"
       regen.style.display = "none"
       lD.style.display = "none"
       token.style.display = "none"
+      document.getElementById("powerfreeze").style.display = "none"
+      document.getElementById("timerstomp").style.display = "none"
+      document.getElementById("exp").style.display = "none"
 
       document.getElementById("affected").classList.remove('screenshake')
       document.body.addEventListener('keydown', () => {
@@ -1290,21 +1459,40 @@ requestAnimationFrame(updateFlarnums);
       mouseY = event.clientY;
     });
 
+  
+
 function moveGunner(gunner, angle, speed1) {
-  
-  
+
   let dx = Math.cos(angle) * speed1;
   let dy = Math.sin(angle) * speed1;
+  let fluxBoosted = false;
+  
+
+  
+
   
 
   function updatePosition() {
+    let initialdx = Math.cos(angle) * speed1;
+    const initialdy = Math.sin(angle) * speed1;
+    
     const rectx = gunner.getBoundingClientRect();
-    if (xactivity) {
-     if (collision(rectx, rect)) {
+    if (collision(rectx, whpreview.getBoundingClientRect()) && points >= 20) {
+      const forceMultiplier = 0.005 * ((speed1) / 0.25);
+      const spinDirection = Math.random() > 0.5 ? 1 : -1; 
+      dx += dy * forceMultiplier * spinDirection;
+      dy -= dx * forceMultiplier * spinDirection;
 
-       dx = Math.cos(angle) * (speed1 * 1.5);
-       dy = Math.sin(angle) * (speed1 * 1.5);
-       gunner.style.backgroundColor = "#d8f005"
+      
+    } 
+
+    if (xactivity) {
+
+     if (collision(rectx, rect) && !fluxBoosted) {
+       dx *= 1.5
+       dy *= 1.5
+       gunner.style.backgroundColor = "#2a344a"
+       fluxBoosted = true;
        setTimeout(() => {
          dx = Math.cos(angle) * speed1;
          dy = Math.sin(angle) * speed1;
@@ -1312,7 +1500,8 @@ function moveGunner(gunner, angle, speed1) {
          
        }, 10000)
      }
-    } else if (powerupCoa) {
+    } 
+    if (powerupCoa) {
       if (collision(powerup1.getBoundingClientRect(), rectx)) {
        
         dx = Math.cos(angle) * (speed1 * 0);
@@ -1326,7 +1515,9 @@ function moveGunner(gunner, angle, speed1) {
         }, 3000)
         
       }
+
     }
+
 
     let newX = rectx.left + dx;
     let newY = rectx.top + dy;
@@ -1348,7 +1539,12 @@ function moveGunner(gunner, angle, speed1) {
     gunner.style.top = `${newY}px`;
 
      if (collision(rect, rectx)) {
-       finalclickdown();
+       if (gunner && parseFloat(getComputedStyle(gunner).opacity) === 0.25) {
+       
+       
+       } else {
+        finalclickdown();
+       }
      } 
     
 
@@ -1378,6 +1574,7 @@ function flare(event) {
 
   document.body.appendChild(myFlare);
 
+
   // Store the flare's final position before it disappears
   const flarePosition = {
     left: myFlare.style.left,
@@ -1386,13 +1583,17 @@ function flare(event) {
 
   // The timeout to hide the flare
   setTimeout(() => {
+    const gunnerTermination = Math.random() * (14500 - 11250) + 11250
 
-    myFlare.style.visibility = "hidden";
+    document.body.removeChild(myFlare)
 
     const gunner = document.createElement("div");
     gunner.classList.add("gunner", "enemy");
     guns.push(gunner);
     document.body.appendChild(gunner);
+    setTimeout(() => {
+      document.body.removeChild(gunner)
+    }, gunnerTermination)
 
 
     gunner.style.left = flarePosition.left;
@@ -1489,18 +1690,11 @@ function flare(event) {
             document.body.appendChild(safeZone)
 
         
-          if (!execution && points === 5 && uFlux === "true") {
-            
-            document.getElementById("timerliquefy").style.display = 'block'
-            xthrow = true;
-            execution = true;
-          }
+
           if (points === 10) {
             unafk()
-            if (uIR === "true") {
-              document.getElementById("timerflare").style.display = "block"
-            }
           }
+          //if ()
 
           requestAnimationFrame(getscreenrandom)
           token.style.left = tokenspawnx + "px"
@@ -1571,12 +1765,14 @@ function flare(event) {
           stepYy = (dyx / dist) * flarhomSpeed;
           stepXx = (dxx / dist) * flarhomSpeed;
           homer.style.backgroundColor = ""
-        } else if (homerSensor === 2) {
+        }
+        if (homerSensor === 2) {
           stepXx = (dxx / dist) * flarhomSpeed * 2;
           stepYy = (dyx / dist) * flarhomSpeed * 2;
           
-          homer.style.backgroundColor = "#d8f005"
-        } else if (homerSensor === 3) {
+          homer.style.backgroundColor = "#2a344a"
+        }
+        if (homerSensor === 3) {
           stepXx = (dxx / dist) * flarhomSpeed * 0;
           stepYy = (dyx / dist) * flarhomSpeed * 0;
           homer.style.backgroundColor = "#5DCBDE"
@@ -1589,6 +1785,25 @@ function flare(event) {
       requestAnimationFrame(updateHomer);
     }
     requestAnimationFrame(updateHomer)
+    function eventListeners() {
+      if (!execution && uFlux === "true") {
+            
+        document.getElementById("timerliquefy").style.display = 'block'
+        xthrow = true;
+        execution = true;
+     
+      }
+      if (localStorage.getItem("?Stomp") === "true") {
+        document.getElementById("timerstomp").style.display = "block"
+      }
+      if (uIR === "true" && uirExecution) {
+        document.getElementById("powerfreeze").textContent = "Icicle Rockets"
+        document.getElementById("powerfreeze").style.width = "110px"
+        uIR = false
+      }
+      requestAnimationFrame(eventListeners)
+    }
+    requestAnimationFrame(eventListeners)
 
 
     
